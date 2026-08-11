@@ -1,19 +1,27 @@
 const juegos = [
 
     {
-        id: "Pokemon",
-
+        id: "pokemon",
         name: "Pokemon Rojo",
-
         rom: "Pokemon - Red Version (UE) [S][!].gb",
-
-        cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
+        cover: "pokemon.jpg",
+        system: "gb"
     },
 
-{
-    id: "mario",
-    name: "Super Mario Bros.",
-    rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gb",
-    cover: "mario.jpg",
-    system: "gba"
-},
+    {
+        id: "mario_gba",
+        name: "Classic NES Series - Super Mario Bros.",
+        rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gb",
+        cover: "mario.jpg",
+        system: "gba"
+    },
+
+    {
+        id: "mario_nes",
+        name: "Super Mario Bros. NES",
+        rom: "Super Mario Bros.nes",
+        cover: "mario-nes.jpg",
+        system: "nes"
+    }
+
+];
