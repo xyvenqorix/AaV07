@@ -1,0 +1,24 @@
+const juegos = [
+
+    {
+        id: "Pokemon",
+
+        name: "Pokemon Rojo",
+
+        rom: "Pokemon - Red Version (UE) [S][!].gb",
+
+        cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
+    },
+
+
+    {
+        id: "juego2",
+
+        name: "Mi Juego 2",
+
+        rom: "juego2.gb",
+
+        cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
+    }
+
+];
