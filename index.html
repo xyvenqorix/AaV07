@@ -2,115 +2,71 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Game Boy Web</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
+*{box-sizing:border-box}
 
-html,body{
+body{
     margin:0;
-    padding:0;
-    min-height:100%;
     background:#080a0f;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
+    color:white;
+    font-family:Arial,sans-serif;
 }
 
 header{
     height:60px;
-    padding:0 15px;
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    background:#10141b;
+    padding:0 12px;
+    background:#11151c;
     border-bottom:1px solid #292e37;
-    position:sticky;
-    top:0;
-    z-index:50;
 }
 
 .logo{
-    font-size:19px;
-    font-weight:800;
-}
-
-.subtitle{
-    color:#858c97;
-    font-size:12px;
+    font-weight:bold;
+    font-size:18px;
 }
 
 .container{
-    max-width:1250px;
+    max-width:1200px;
     margin:auto;
-    padding:20px 14px 50px;
-}
-
-.title{
-    margin-bottom:16px;
-}
-
-.title h1{
-    margin:0;
-    font-size:24px;
-}
-
-.title p{
-    margin:5px 0 0;
-    color:#858c97;
-    font-size:13px;
+    padding:18px 12px;
 }
 
 .search{
-    margin-bottom:18px;
-}
-
-.search input{
     width:100%;
-    padding:12px 15px;
-    border-radius:11px;
-    border:1px solid #292f38;
-    outline:none;
+    padding:12px;
+    margin-bottom:16px;
+    border-radius:10px;
+    border:1px solid #303640;
     background:#11151c;
-    color:#fff;
-    font-size:14px;
+    color:white;
+    outline:none;
 }
 
 .games{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
-    gap:14px;
+    gap:12px;
 }
 
 .game{
-    position:relative;
-    min-width:0;
     overflow:hidden;
-    border:1px solid #292f38;
+    border:1px solid #292e37;
     border-radius:12px;
     background:#11151c;
-    transition:.18s;
-}
-
-.game:hover{
-    transform:translateY(-3px);
-    border-color:#5865f2;
 }
 
 .cover{
-    width:100%;
-    aspect-ratio:1/1.25;
-    background:#181c24;
-    overflow:hidden;
+    aspect-ratio:1/1.2;
+    background:#191d25;
 }
 
 .cover img{
     width:100%;
     height:100%;
-    display:block;
     object-fit:cover;
 }
 
@@ -118,68 +74,42 @@ header{
     padding:8px;
 }
 
-.game-name{
-    margin-bottom:7px;
+.name{
     text-align:center;
     font-size:13px;
-    font-weight:700;
+    font-weight:bold;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
+    margin-bottom:7px;
 }
 
 .play{
     width:100%;
-    padding:8px;
     border:0;
     border-radius:8px;
+    padding:8px;
     background:#5865f2;
     color:white;
-    font-weight:700;
-    font-size:12px;
-    cursor:pointer;
+    font-weight:bold;
 }
-
-.favorite{
-    position:absolute;
-    right:7px;
-    top:7px;
-    z-index:5;
-    width:29px;
-    height:29px;
-    border:0;
-    border-radius:50%;
-    background:rgba(0,0,0,.75);
-    color:#fff;
-    font-size:16px;
-}
-
-.favorite.active{
-    color:#ffd84d;
-}
-
-
-/* =========================
-   EMULADOR
-========================= */
 
 #playerModal{
+    display:none;
     position:fixed;
     inset:0;
-    z-index:100;
-    display:none;
-    flex-direction:column;
     background:#000;
+    z-index:100;
+    flex-direction:column;
 }
 
 .playerHeader{
     height:58px;
-    flex-shrink:0;
-    padding:0 7px 0 12px;
     display:flex;
     align-items:center;
     gap:5px;
-    background:#10141b;
+    padding:0 6px 0 10px;
+    background:#11151c;
     border-bottom:1px solid #292e37;
 }
 
@@ -189,23 +119,17 @@ header{
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    font-size:14px;
-    font-weight:700;
+    font-size:13px;
+    font-weight:bold;
 }
 
-.headerButton{
-    flex-shrink:0;
+.btn{
     border:1px solid #353b46;
     border-radius:8px;
-    padding:7px 9px;
     background:#20252e;
-    color:#fff;
-    font-size:11px;
-    cursor:pointer;
-}
-
-.headerButton:active{
-    transform:scale(.95);
+    color:white;
+    padding:7px 9px;
+    font-size:10px;
 }
 
 .close{
@@ -216,131 +140,81 @@ header{
     position:relative;
     width:100%;
     height:calc(100vh - 58px);
-    overflow:hidden;
     background:#000;
 }
-
-
-/* =========================
-   CARGANDO
-========================= */
 
 #loading{
     position:absolute;
     inset:0;
     z-index:20;
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
-    flex-direction:column;
     background:#050608;
-    text-align:center;
-    padding:20px;
 }
 
-.loadingIcon{
-    font-size:42px;
-    animation:pulse 1.2s infinite;
-}
-
-@keyframes pulse{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.1)}
-}
-
-.loadingTitle{
-    margin-top:10px;
-    font-size:19px;
-    font-weight:800;
+.loader{
+    font-size:40px;
 }
 
 .loadingText{
-    margin-top:6px;
-    color:#858c97;
-    font-size:12px;
+    margin-top:12px;
+    color:#aaa;
+    font-size:13px;
 }
 
 .progress{
-    width:min(350px,85%);
+    width:80%;
+    max-width:350px;
     height:7px;
-    margin-top:20px;
-    overflow:hidden;
-    border-radius:20px;
+    margin-top:18px;
     background:#20242c;
+    border-radius:20px;
+    overflow:hidden;
 }
 
 .progressBar{
-    width:0;
+    width:0%;
     height:100%;
     background:#5865f2;
-    transition:width .2s;
 }
 
-.percent{
-    margin-top:8px;
-    color:#999;
+#percent{
+    margin-top:7px;
     font-size:12px;
+    color:#999;
 }
-
-#error{
-    display:none;
-    max-width:420px;
-    margin-top:15px;
-    color:#ff7070;
-    font-size:13px;
-    line-height:1.5;
-}
-
-
-/* =========================
-   MENSAJE
-========================= */
 
 #toast{
     position:fixed;
     left:50%;
     bottom:25px;
-    z-index:500;
-    transform:translateX(-50%) translateY(20px);
-    opacity:0;
-    pointer-events:none;
-
-    padding:10px 14px;
-
-    border-radius:10px;
-
+    transform:translateX(-50%);
+    padding:10px 15px;
     background:#171b22;
     border:1px solid #343a45;
-
-    color:#fff;
+    border-radius:10px;
     font-size:12px;
-
+    opacity:0;
+    pointer-events:none;
     transition:.25s;
+    z-index:500;
 }
 
 #toast.show{
     opacity:1;
-    transform:translateX(-50%) translateY(0);
 }
-
-
-/* =========================
-   MÓVIL
-========================= */
 
 @media(max-width:600px){
 
-    .container{
-        padding:15px 9px 40px;
-    }
-
     .games{
         grid-template-columns:repeat(3,minmax(0,1fr));
-        gap:9px;
+        gap:8px;
     }
 
-    .game-name{
-        font-size:11px;
+    .name{
+        font-size:10px;
     }
 
     .play{
@@ -349,29 +223,12 @@ header{
     }
 
     .playerHeader{
-        padding-left:7px;
-        padding-right:5px;
-        gap:4px;
+        gap:3px;
     }
 
-    .playerTitle{
-        font-size:12px;
-    }
-
-    .headerButton{
-        padding:6px 7px;
+    .btn{
+        padding:6px;
         font-size:9px;
-    }
-}
-
-@media(max-width:350px){
-
-    .games{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-    }
-
-    .headerButton{
-        padding:6px 5px;
     }
 }
 </style>
@@ -379,54 +236,27 @@ header{
 
 <body>
 
-
 <header>
-
-    <div class="logo">
-        🎮 Game Boy Web
-    </div>
-
-    <div class="subtitle">
-        Biblioteca
-    </div>
-
+    <div class="logo">🎮 Game Boy Web</div>
 </header>
 
+<div class="container">
 
-<main class="container">
-
-    <div class="title">
-
-        <h1>🎮 Juegos</h1>
-
-        <p>
-            Toca JUGAR para comenzar
-        </p>
-
-    </div>
-
-
-    <div class="search">
-
-        <input
-            id="search"
-            type="search"
-            placeholder="🔎 Buscar juego..."
-            autocomplete="off">
-
-    </div>
-
+    <input
+        id="search"
+        class="search"
+        placeholder="🔎 Buscar juego...">
 
     <div
         id="games"
         class="games">
     </div>
 
-</main>
+</div>
 
 
 <!-- =========================
-     PLAYER
+     EMULADOR
 ========================= -->
 
 <div id="playerModal">
@@ -439,53 +269,42 @@ header{
             🎮 Juego
         </div>
 
-
         <button
-            id="exportButton"
-            class="headerButton">
+            id="exportBtn"
+            class="btn">
             📤 Exportar
         </button>
 
-
         <button
-            id="importButton"
-            class="headerButton">
+            id="importBtn"
+            class="btn">
             📥 Importar
         </button>
 
-
         <button
-            id="closePlayer"
-            class="headerButton close">
+            id="closeBtn"
+            class="btn close">
             ✕ Cerrar
         </button>
 
-
         <input
-            id="importFile"
+            id="fileInput"
             type="file"
-            accept=".state"
+            accept=".json,application/json"
             hidden>
 
     </div>
-
 
     <div id="player">
 
         <div id="loading">
 
-            <div class="loadingIcon">
-                🎮
-            </div>
-
-            <div class="loadingTitle">
-                Cargando juego
-            </div>
+            <div class="loader">🎮</div>
 
             <div
                 id="loadingText"
                 class="loadingText">
-                Preparando Game Boy...
+                Cargando juego...
             </div>
 
             <div class="progress">
@@ -497,22 +316,8 @@ header{
 
             </div>
 
-            <div
-                id="percent"
-                class="percent">
+            <div id="percent">
                 0%
-            </div>
-
-            <div id="error">
-
-                ❌ No se pudo cargar el juego.
-
-                <br><br>
-
-                Comprueba que el archivo
-                <b>.gb</b>
-                exista en tu repositorio.
-
             </div>
 
         </div>
@@ -530,32 +335,38 @@ header{
 /* =========================================================
    JUEGOS
 
-   Pon los archivos .gb junto al index.html.
-
-   Ejemplo:
+   Ponlos junto al index.html:
 
    index.html
-   mario.gb
-   pokemon.gb
+   juego1.gb
+   juego2.gb
 ========================================================= */
 
 const juegos = [
 
     {
-        id: 1,
-        name: "aaaa",
-        rom: "Pokemon - Red Version (UE) [S][!].gb",
-        cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
+        id:"juego1",
+        name:"pokeee",
+        rom:"Pokemon - Red Version (UE) [S][!].gb",
+        cover:"https://i.imgur.com/REEMPLAZA-IMAGEN.jpg"
     },
 
     {
-        id: 2,
-        name: "Mi Juego 2",
-        rom: "juego2.gb",
-        cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
+        id:"juego2",
+        name:"Mi Juego 2",
+        rom:"juego2.gb",
+        cover:"https://i.imgur.com/REEMPLAZA-IMAGEN.jpg"
     }
 
 ];
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let juegoActual = null;
+let loaderTimer = null;
 
 
 /* =========================================================
@@ -568,23 +379,14 @@ const games =
 const search =
     document.getElementById("search");
 
-const playerModal =
+const modal =
     document.getElementById("playerModal");
 
-const playerTitle =
+const title =
     document.getElementById("playerTitle");
 
-const closePlayer =
-    document.getElementById("closePlayer");
-
-const exportButton =
-    document.getElementById("exportButton");
-
-const importButton =
-    document.getElementById("importButton");
-
-const importFile =
-    document.getElementById("importFile");
+const player =
+    document.getElementById("player");
 
 const loading =
     document.getElementById("loading");
@@ -598,53 +400,31 @@ const progressBar =
 const percent =
     document.getElementById("percent");
 
-const error =
-    document.getElementById("error");
+const exportBtn =
+    document.getElementById("exportBtn");
+
+const importBtn =
+    document.getElementById("importBtn");
+
+const fileInput =
+    document.getElementById("fileInput");
+
+const closeBtn =
+    document.getElementById("closeBtn");
 
 const toast =
     document.getElementById("toast");
 
 
 /* =========================================================
-   VARIABLES
-========================================================= */
-
-let juegoActual = null;
-
-let progresoTimer = null;
-
-let autoSaveTimer = null;
-
-
-/* =========================================================
-   FAVORITOS
-========================================================= */
-
-let favoritos =
-    JSON.parse(
-        localStorage.getItem("gb_favoritos") || "[]"
-    );
-
-
-function guardarFavoritos(){
-
-    localStorage.setItem(
-        "gb_favoritos",
-        JSON.stringify(favoritos)
-    );
-
-}
-
-
-/* =========================================================
    MENSAJE
 ========================================================= */
 
-let toastTimer = null;
+let toastTimer;
 
-function mostrarToast(texto){
+function msg(text){
 
-    toast.textContent = texto;
+    toast.textContent = text;
 
     toast.classList.add("show");
 
@@ -655,158 +435,60 @@ function mostrarToast(texto){
             ()=>{
                 toast.classList.remove("show");
             },
-            1800
+            2200
         );
 }
 
 
 /* =========================================================
-   LISTA DE JUEGOS
+   LISTA
 ========================================================= */
 
 function mostrarJuegos(lista=juegos){
 
-    games.innerHTML = "";
-
-
-    if(!lista.length){
-
-        games.innerHTML = `
-
-            <p style="
-                grid-column:1/-1;
-                text-align:center;
-                color:#858c97;
-                padding:30px;">
-
-                No se encontraron juegos.
-
-            </p>
-
-        `;
-
-        return;
-    }
-
+    games.innerHTML="";
 
     lista.forEach(juego=>{
 
         const card =
-            document.createElement("article");
+            document.createElement("div");
 
+        card.className="game";
 
-        card.className =
-            "game";
-
-
-        const favorito =
-            favoritos.includes(
-                juego.id
-            );
-
-
-        card.innerHTML = `
-
-            <button
-                class="favorite ${
-                    favorito ? "active" : ""
-                }">
-
-                ${favorito ? "★" : "☆"}
-
-            </button>
-
+        card.innerHTML=`
 
             <div class="cover">
 
                 <img
                     src="${juego.cover}"
                     alt="${juego.name}"
-                    loading="lazy"
                     onerror="
-                        this.style.display='none';
+                        this.style.display='none'
                     ">
 
             </div>
 
-
             <div class="info">
 
-                <div class="game-name">
+                <div class="name">
                     ${juego.name}
                 </div>
-
 
                 <button class="play">
                     ▶ JUGAR
                 </button>
 
             </div>
-
         `;
 
 
-        const fav =
-            card.querySelector(
-                ".favorite"
-            );
+        card
+        .querySelector(".play")
+        .onclick=()=>{
 
+            abrirJuego(juego);
 
-        fav.onclick =
-            event=>{
-
-                event.stopPropagation();
-
-
-                if(
-                    favoritos.includes(
-                        juego.id
-                    )
-                ){
-
-                    favoritos =
-                        favoritos.filter(
-                            id =>
-                                id !== juego.id
-                        );
-
-                }else{
-
-                    favoritos.push(
-                        juego.id
-                    );
-
-                }
-
-
-                guardarFavoritos();
-
-
-                mostrarJuegos(
-                    filtrar(
-                        search.value
-                    )
-                );
-
-            };
-
-
-        /*
-           La imagen NO abre el juego.
-
-           Solamente JUGAR.
-        */
-
-        card.querySelector(
-            ".play"
-        ).onclick =
-            event=>{
-
-                event.stopPropagation();
-
-                abrirJuego(juego);
-
-            };
+        };
 
 
         games.appendChild(card);
@@ -816,157 +498,83 @@ function mostrarJuegos(lista=juegos){
 
 
 /* =========================================================
-   BUSCAR
+   BUSCADOR
 ========================================================= */
 
-function filtrar(texto){
+search.oninput=()=>{
 
-    texto =
-        texto
+    const texto =
+        search.value
         .toLowerCase()
         .trim();
 
-
-    if(!texto){
-        return juegos;
-    }
-
-
-    return juegos.filter(
-        juego =>
-            juego.name
-            .toLowerCase()
-            .includes(texto)
+    mostrarJuegos(
+        juegos.filter(
+            juego =>
+                juego.name
+                .toLowerCase()
+                .includes(texto)
+        )
     );
-}
-
-
-search.addEventListener(
-    "input",
-    ()=>{
-        mostrarJuegos(
-            filtrar(search.value)
-        );
-    }
-);
+};
 
 
 /* =========================================================
    CONFIGURAR EMULATORJS
 ========================================================= */
 
-function configurarEmulador(juego){
+function configurar(juego){
 
     window.EJS_player =
         "#player";
 
-
     window.EJS_core =
         "gb";
-
 
     window.EJS_gameUrl =
         juego.rom;
 
-
     window.EJS_gameName =
         juego.name;
-
-
-    /*
-       IMPORTANTE:
-
-       EmulatorJS recomienda que EJS_gameID
-       sea numérico y único para cada juego.
-    */
 
     window.EJS_gameID =
         juego.id;
 
-
     window.EJS_pathtodata =
         "https://cdn.emulatorjs.org/stable/data/";
-
 
     window.EJS_startOnLoaded =
         true;
 
-
     window.EJS_controlScheme =
-        "gb";
+        "gameboy";
 
 
     /*
-       Guardar estados en el navegador
-       además de permitir Save State.
-    */
+       Este callback recibe el estado
+       generado por EmulatorJS.
 
-    window.EJS_defaultOptions = {
-
-        "save-state-location":
-            "browser"
-
-    };
-
-
-    /*
-       =====================================================
-       ESTA ES LA PARTE IMPORTANTE
-       =====================================================
-
-       EmulatorJS entrega aquí el Save State REAL.
-
-       data.state = estado binario real
-       data.screenshot = captura del estado
+       Lo guardamos para poder exportarlo.
     */
 
     window.EJS_onSaveState =
         function(data){
 
-            /*
-               Guardamos el último estado real
-               en memoria para Exportar.
-            */
-
-            window.ultimoSaveState =
-                data.state;
-
-
-            /*
-               Si Exportar estaba esperando
-               este Save State, descargamos.
-            */
-
             if(
-                window.exportandoEstado === true
+                data &&
+                data.state
             ){
 
-                window.exportandoEstado =
-                    false;
+                window.estadoActual =
+                    data.state;
 
-
-                descargarSaveState(
-                    data.state
+                console.log(
+                    "Save State recibido."
                 );
 
             }
 
         };
-
-
-    /*
-       Cuando EmulatorJS carga un estado.
-    */
-
-    window.EJS_onLoadState =
-        function(data){
-
-            console.log(
-                "Save State cargado"
-            );
-
-        };
-
 }
 
 
@@ -979,247 +587,403 @@ function abrirJuego(juego){
     juegoActual =
         juego;
 
-
-    playerTitle.textContent =
+    title.textContent =
         "🎮 " + juego.name;
 
-
-    playerModal.style.display =
+    modal.style.display =
         "flex";
-
 
     loading.style.display =
         "flex";
 
-
-    error.style.display =
-        "none";
-
-
     progressBar.style.width =
         "0%";
 
-
     percent.textContent =
         "0%";
-
 
     loadingText.textContent =
         "Preparando Game Boy...";
 
 
-    /*
-       Limpiar estado anterior.
-    */
-
-    window.ultimoSaveState =
+    window.estadoActual =
         null;
 
 
-    window.exportandoEstado =
-        false;
+    configurar(juego);
 
 
-    configurarEmulador(
-        juego
-    );
+    clearInterval(loaderTimer);
 
 
-    let progreso = 0;
+    let p=0;
+
+    loaderTimer =
+        setInterval(()=>{
+
+            if(p<90){
+
+                p+=3;
+
+                progressBar.style.width =
+                    p+"%";
+
+                percent.textContent =
+                    p+"%";
 
 
-    clearInterval(
-        progresoTimer
-    );
+                if(p<30){
 
+                    loadingText.textContent =
+                        "Cargando emulador...";
 
-    progresoTimer =
-        setInterval(
-            ()=>{
+                }else if(p<60){
 
-                if(
-                    progreso < 90
-                ){
+                    loadingText.textContent =
+                        "Preparando controles...";
 
-                    progreso += 4;
+                }else{
 
-
-                    progressBar.style.width =
-                        progreso + "%";
-
-
-                    percent.textContent =
-                        progreso + "%";
-
-
-                    if(
-                        progreso < 30
-                    ){
-
-                        loadingText.textContent =
-                            "Cargando emulador...";
-
-                    }else if(
-                        progreso < 60
-                    ){
-
-                        loadingText.textContent =
-                            "Preparando controles...";
-
-                    }else{
-
-                        loadingText.textContent =
-                            "Cargando juego...";
-
-                    }
+                    loadingText.textContent =
+                        "Cargando juego...";
 
                 }
 
-            },
-            250
-        );
+            }
 
+        },250);
 
-    /*
-       Eliminar loader anterior.
-    */
 
     const viejo =
         document.getElementById(
             "emulatorLoader"
         );
 
-
-    if(viejo){
-
+    if(viejo)
         viejo.remove();
 
-    }
-
-
-    /*
-       Cargar EmulatorJS.
-    */
 
     const script =
-        document.createElement(
-            "script"
-        );
-
+        document.createElement("script");
 
     script.id =
         "emulatorLoader";
-
 
     script.src =
         "https://cdn.emulatorjs.org/stable/data/loader.js";
 
 
-    script.onload =
-        ()=>{
+    script.onload=()=>{
 
-            setTimeout(
-                ()=>{
+        setTimeout(()=>{
 
-                    clearInterval(
-                        progresoTimer
-                    );
+            clearInterval(loaderTimer);
 
+            progressBar.style.width =
+                "100%";
 
-                    progressBar.style.width =
-                        "100%";
-
-
-                    percent.textContent =
-                        "100%";
-
-
-                    loadingText.textContent =
-                        "¡Juego listo!";
-
-
-                    setTimeout(
-                        ()=>{
-
-                            loading.style.display =
-                                "none";
-
-
-                            iniciarAutoGuardado();
-
-                        },
-                        700
-                    );
-
-                },
-                1800
-            );
-
-        };
-
-
-    script.onerror =
-        ()=>{
-
-            clearInterval(
-                progresoTimer
-            );
-
+            percent.textContent =
+                "100%";
 
             loadingText.textContent =
-                "Error al cargar EmulatorJS.";
+                "¡Listo!";
 
 
-            error.style.display =
-                "block";
+            setTimeout(()=>{
 
-        };
+                loading.style.display =
+                    "none";
+
+            },600);
+
+        },1500);
+
+    };
 
 
-    document.body.appendChild(
-        script
-    );
+    script.onerror=()=>{
+
+        clearInterval(loaderTimer);
+
+        loadingText.textContent =
+            "❌ Error cargando EmulatorJS.";
+
+    };
+
+
+    document.body.appendChild(script);
 
 }
 
 
 /* =========================================================
-   DESCARGAR SAVE STATE REAL
+   CONVERTIR BYTES A BASE64
 ========================================================= */
 
-function descargarSaveState(state){
+function bytesToBase64(data){
 
-    if(!state){
+    let bytes;
 
-        mostrarToast(
-            "❌ No se recibió el estado."
+
+    if(
+        data instanceof Uint8Array
+    ){
+
+        bytes=data;
+
+    }else if(
+        data instanceof ArrayBuffer
+    ){
+
+        bytes =
+            new Uint8Array(data);
+
+    }else if(
+        ArrayBuffer.isView(data)
+    ){
+
+        bytes =
+            new Uint8Array(
+                data.buffer,
+                data.byteOffset,
+                data.byteLength
+            );
+
+    }else{
+
+        throw new Error(
+            "Formato de estado desconocido"
+        );
+
+    }
+
+
+    let binary="";
+
+    const bloque=0x8000;
+
+    for(
+        let i=0;
+        i<bytes.length;
+        i+=bloque
+    ){
+
+        binary +=
+            String.fromCharCode(
+                ...bytes.subarray(
+                    i,
+                    Math.min(
+                        i+bloque,
+                        bytes.length
+                    )
+                )
+            );
+
+    }
+
+
+    return btoa(binary);
+}
+
+
+/* =========================================================
+   BASE64 A BYTES
+========================================================= */
+
+function base64ToBytes(base64){
+
+    const binary =
+        atob(base64);
+
+    const bytes =
+        new Uint8Array(
+            binary.length
+        );
+
+
+    for(
+        let i=0;
+        i<binary.length;
+        i++
+    ){
+
+        bytes[i] =
+            binary.charCodeAt(i);
+
+    }
+
+
+    return bytes;
+}
+
+
+/* =========================================================
+   EXPORTAR save.json
+========================================================= */
+
+async function exportar(){
+
+    if(!juegoActual){
+
+        msg(
+            "Primero abre un juego."
         );
 
         return;
+
     }
+
+
+    const emu =
+        window.EJS_emulator;
+
+
+    if(
+        !emu ||
+        !emu.gameManager ||
+        typeof
+        emu.gameManager.saveState
+        !== "function"
+    ){
+
+        msg(
+            "El juego todavía está cargando."
+        );
+
+        return;
+
+    }
+
+
+    msg(
+        "💾 Guardando partida..."
+    );
 
 
     try{
 
         /*
-           EmulatorJS entrega el estado
-           como buffer/Uint8Array.
-
-           NO lo convertimos a JSON.
+           Pedimos el Save State REAL.
         */
 
-        const bytes =
-            state instanceof Uint8Array
-                ? state
-                : new Uint8Array(state);
+        let resultado =
+            emu.gameManager.saveState();
+
+
+        /*
+           Algunas versiones pueden devolver
+           una Promise.
+        */
+
+        if(
+            resultado &&
+            typeof resultado.then ===
+            "function"
+        ){
+
+            resultado =
+                await resultado;
+
+        }
+
+
+        /*
+           Si la versión devuelve directamente
+           los bytes, usamos eso.
+        */
+
+        let estado =
+            resultado;
+
+
+        /*
+           Si no devuelve nada directamente,
+           usamos el estado recibido por
+           EJS_onSaveState.
+        */
+
+        if(!estado){
+
+            estado =
+                window.estadoActual;
+
+        }
+
+
+        /*
+           Si sigue sin existir, mostramos
+           el error real en lugar de dejar
+           "esperando".
+        */
+
+        if(!estado){
+
+            msg(
+                "⚠️ EmulatorJS no entregó el estado."
+            );
+
+            console.error(
+                "saveState no devolvió datos."
+            );
+
+            return;
+
+        }
+
+
+        const base64 =
+            bytesToBase64(
+                estado
+            );
+
+
+        /*
+           ESTE SÍ ES UN JSON REAL.
+        */
+
+        const save = {
+
+            format:
+                "EmulatorJS Save State",
+
+            version:
+                1,
+
+            game:
+                juegoActual.name,
+
+            gameId:
+                juegoActual.id,
+
+            rom:
+                juegoActual.rom,
+
+            core:
+                "gb",
+
+            created:
+                new Date().toISOString(),
+
+            state:
+                base64
+
+        };
+
+
+        const texto =
+            JSON.stringify(
+                save,
+                null,
+                2
+            );
 
 
         const blob =
             new Blob(
-                [bytes],
+                [texto],
                 {
                     type:
-                    "application/octet-stream"
+                    "application/json"
                 }
             );
 
@@ -1230,71 +994,60 @@ function descargarSaveState(state){
             );
 
 
-        const enlace =
-            document.createElement(
-                "a"
-            );
+        const a =
+            document.createElement("a");
 
 
-        enlace.href =
+        a.href =
             url;
 
 
-        enlace.download =
-            limpiarNombre(
-                juegoActual.name
-            ) +
-            ".state";
-
-
         /*
-           Esto provoca la descarga REAL
-           del archivo en el navegador.
-
-           En Android/Chrome debe aparecer
-           la descarga del archivo.
+           NOMBRE EXACTO:
         */
 
-        enlace.style.display =
+        a.download =
+            "save.json";
+
+
+        a.style.display =
             "none";
 
 
-        document.body.appendChild(
-            enlace
-        );
+        document.body.appendChild(a);
 
 
-        enlace.click();
+        /*
+           DESCARGA DIRECTA.
+        */
+
+        a.click();
 
 
-        enlace.remove();
+        a.remove();
 
 
         setTimeout(
             ()=>{
-                URL.revokeObjectURL(
-                    url
-                );
+                URL.revokeObjectURL(url);
             },
-            3000
+            5000
         );
 
 
-        mostrarToast(
-            "📤 Descargando Save State..."
+        msg(
+            "📥 save.json descargado"
         );
 
 
-    }catch(e){
+    }catch(error){
 
         console.error(
-            "Error descargando:",
-            e
+            error
         );
 
-
-        mostrarToast(
-            "❌ Error al descargar"
+        msg(
+            "❌ Error al guardar."
         );
 
     }
@@ -1303,345 +1056,201 @@ function descargarSaveState(state){
 
 
 /* =========================================================
-   NOMBRE SEGURO
+   BOTÓN EXPORTAR
 ========================================================= */
 
-function limpiarNombre(nombre){
-
-    return String(nombre)
-        .replace(
-            /[\\/:*?"<>|]/g,
-            "_"
-        )
-        .trim() ||
-        "gameboy-save";
-
-}
+exportBtn.onclick =
+    exportar;
 
 
 /* =========================================================
-   EXPORTAR
+   IMPORTAR save.json
 ========================================================= */
 
-exportButton.onclick =
-    ()=>{
+importBtn.onclick=()=>{
 
-        if(!juegoActual){
+    if(!juegoActual){
 
-            mostrarToast(
-                "No hay ningún juego abierto."
-            );
+        msg(
+            "Primero abre un juego."
+        );
 
-            return;
-        }
+        return;
 
-
-        const emulador =
-            window.EJS_emulator;
+    }
 
 
-        if(
-            !emulador ||
-            !emulador.gameManager ||
-            typeof
-            emulador.gameManager.saveState
-            !== "function"
-        ){
+    /*
+       Abre el selector de archivos
+       de Android.
+    */
 
-            mostrarToast(
-                "Espera a que el juego termine de cargar."
-            );
+    fileInput.click();
 
-            return;
-        }
+};
 
 
-        /*
-           Activamos una bandera.
-
-           El siguiente Save State REAL que
-           genere EmulatorJS será exportado.
-        */
-
-        window.exportandoEstado =
-            true;
-
-
-        try{
-
-            /*
-               Este es el método usado para
-               generar el Save State real.
-            */
-
-            emulador
-                .gameManager
-                .saveState();
-
-
-            mostrarToast(
-                "💾 Preparando descarga..."
-            );
-
-
-        }catch(e){
-
-            window.exportandoEstado =
-                false;
-
-
-            console.error(e);
-
-
-            mostrarToast(
-                "❌ No se pudo crear el estado."
-            );
-
-        }
-
-    };
-
-
-/* =========================================================
-   IMPORTAR
-========================================================= */
-
-importButton.onclick =
-    ()=>{
-
-        if(!juegoActual){
-
-            mostrarToast(
-                "Primero abre un juego."
-            );
-
-            return;
-        }
-
-
-        /*
-           Android/Chrome abrirá el selector
-           de archivos del teléfono.
-        */
-
-        importFile.click();
-
-    };
-
-
-importFile.addEventListener(
-    "change",
+fileInput.onchange =
     async function(){
 
         const archivo =
             this.files[0];
 
 
-        if(!archivo){
-
+        if(!archivo)
             return;
-
-        }
-
-
-        const emulador =
-            window.EJS_emulator;
-
-
-        if(
-            !emulador ||
-            !emulador.gameManager ||
-            typeof
-            emulador.gameManager.loadState
-            !== "function"
-        ){
-
-            mostrarToast(
-                "El emulador todavía no está listo."
-            );
-
-            this.value = "";
-
-            return;
-        }
 
 
         try{
 
-            mostrarToast(
-                "📥 Cargando partida..."
+            msg(
+                "📂 Leyendo save.json..."
             );
 
 
-            /*
-               Leer el .state como bytes.
-            */
-
-            const buffer =
-                await archivo.arrayBuffer();
+            const texto =
+                await archivo.text();
 
 
-            const state =
-                new Uint8Array(
-                    buffer
-                );
+            const save =
+                JSON.parse(texto);
 
 
             /*
-               CARGA DIRECTA SOBRE EL JUEGO
-               QUE YA ESTÁ ABIERTO.
-
-               NO reinicia la ROM.
+               Comprobar que sea nuestro
+               formato.
             */
 
-            emulador
-                .gameManager
-                .loadState(
-                    state
+            if(
+                !save.state
+            ){
+
+                throw new Error(
+                    "El archivo no contiene state."
+                );
+
+            }
+
+
+            /*
+               Comprobar juego.
+            */
+
+            if(
+                save.gameId &&
+                String(save.gameId)
+                !== String(juegoActual.id)
+            ){
+
+                const continuar =
+                    confirm(
+                        "Este save pertenece a otro juego. ¿Intentar cargarlo?"
+                    );
+
+
+                if(!continuar){
+
+                    this.value="";
+                    return;
+
+                }
+
+            }
+
+
+            const bytes =
+                base64ToBytes(
+                    save.state
                 );
 
 
-            mostrarToast(
-                "✅ Partida cargada"
+            const emu =
+                window.EJS_emulator;
+
+
+            if(
+                !emu ||
+                !emu.gameManager ||
+                typeof
+                emu.gameManager.loadState
+                !== "function"
+            ){
+
+                throw new Error(
+                    "Emulador no disponible."
+                );
+
+            }
+
+
+            /*
+               CARGAR SOBRE EL JUEGO
+               ACTUAL.
+
+               No cerramos.
+               No reiniciamos.
+            */
+
+            emu.gameManager.loadState(
+                bytes
             );
 
 
-        }catch(e){
+            msg(
+                "✅ save.json cargado"
+            );
+
+
+        }catch(error){
 
             console.error(
-                "Error importando Save State:",
-                e
+                error
             );
 
-
-            mostrarToast(
-                "❌ El archivo no es compatible."
+            msg(
+                "❌ No se pudo cargar save.json"
             );
 
         }
 
 
         /*
-           Permitir seleccionar nuevamente
+           Permite volver a seleccionar
            el mismo archivo.
         */
 
-        this.value = "";
+        this.value="";
 
-    }
-);
-
-
-/* =========================================================
-   AUTO-GUARDADO
-========================================================= */
-
-function iniciarAutoGuardado(){
-
-    clearInterval(
-        autoSaveTimer
-    );
-
-
-    /*
-       Cada minuto genera un Save State
-       interno de EmulatorJS.
-
-       NO descarga archivos automáticamente.
-    */
-
-    autoSaveTimer =
-        setInterval(
-            ()=>{
-
-                const emulador =
-                    window.EJS_emulator;
-
-
-                if(
-                    emulador &&
-                    emulador.gameManager &&
-                    typeof
-                    emulador.gameManager.saveState
-                    === "function"
-                ){
-
-                    try{
-
-                        emulador
-                            .gameManager
-                            .saveState();
-
-                    }catch(e){
-
-                        console.log(
-                            "Auto-save no disponible."
-                        );
-
-                    }
-
-                }
-
-            },
-            60000
-        );
-}
+    };
 
 
 /* =========================================================
    CERRAR
 ========================================================= */
 
-closePlayer.onclick =
-    ()=>{
+closeBtn.onclick=()=>{
 
-        clearInterval(
-            autoSaveTimer
-        );
-
-
-        clearInterval(
-            progresoTimer
-        );
+    clearInterval(
+        loaderTimer
+    );
 
 
-        playerModal.style.display =
-            "none";
+    modal.style.display =
+        "none";
 
 
-        juegoActual =
-            null;
+    juegoActual =
+        null;
 
 
-        window.ultimoSaveState =
-            null;
+    window.estadoActual =
+        null;
 
-
-        window.exportandoEstado =
-            false;
-
-
-        /*
-           Limpiar loader.
-        */
-
-        const loader =
-            document.getElementById(
-                "emulatorLoader"
-            );
-
-
-        if(loader){
-
-            loader.remove();
-
-        }
-
-    };
+};
 
 
 /* =========================================================
-   INICIAR
+   INICIO
 ========================================================= */
 
 mostrarJuegos();
