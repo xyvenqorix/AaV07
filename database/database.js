@@ -10,15 +10,10 @@ const juegos = [
         cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
     },
 
-
-    {
-        id: "Super Mario",
-
-        name: "Classic NES Series: Super Mario Bros.",
-
-        rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gb",
-
-        cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
-    },
-
-];
+{
+    id: "mario",
+    name: "Super Mario Bros.",
+    rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gb",
+    cover: "mario.jpg",
+    system: "gba"
+},
