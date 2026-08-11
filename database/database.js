@@ -19,6 +19,6 @@ const juegos = [
         rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gb",
 
         cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
-    }
+    },
 
 ];
