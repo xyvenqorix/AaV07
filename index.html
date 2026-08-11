@@ -15,138 +15,140 @@
 body {
     margin: 0;
     background: #080a0f;
-    color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-family: Arial, sans-serif;
 }
 
-/* =========================
-   CABECERA
-========================= */
+/* CABECERA */
 
 header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-
-    height: 64px;
+    height: 60px;
+    padding: 0 18px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 20px;
+    background: #10141b;
+    border-bottom: 1px solid #272c35;
 
-    background: rgba(12,15,22,.96);
-    border-bottom: 1px solid #272c36;
-    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
 .logo {
-    font-size: 21px;
+    font-size: 20px;
     font-weight: 800;
 }
 
 .subtitle {
-    color: #858b96;
-    font-size: 13px;
+    color: #777f8b;
+    font-size: 12px;
 }
 
-/* =========================
-   CONTENIDO
-========================= */
+
+/* CONTENEDOR */
 
 .container {
-    width: 100%;
     max-width: 1200px;
     margin: auto;
-    padding: 24px 18px 50px;
+    padding: 20px 14px 50px;
 }
 
 .title {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .title h1 {
     margin: 0;
-    font-size: 27px;
+    font-size: 24px;
 }
 
 .title p {
-    margin: 7px 0 0;
-    color: #858b96;
+    margin: 5px 0 0;
+    color: #7f8792;
+    font-size: 13px;
 }
 
-/* =========================
-   BUSCADOR
-========================= */
+
+/* BUSCADOR */
 
 .search {
-    width: 100%;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 }
 
 .search input {
     width: 100%;
-    padding: 14px 17px;
+    padding: 12px 15px;
 
-    border: 1px solid #292f39;
-    border-radius: 13px;
+    border-radius: 11px;
+    border: 1px solid #292f38;
+
+    outline: none;
 
     background: #11151c;
     color: white;
 
-    outline: none;
-    font-size: 15px;
+    font-size: 14px;
 }
 
-.search input:focus {
-    border-color: #5865f2;
-}
 
-/* =========================
-   JUEGOS
-========================= */
+/* ==========================
+   CUADRÍCULA
+========================== */
 
 .games {
     display: grid;
 
-    grid-template-columns:
-        repeat(auto-fill, minmax(190px, 1fr));
+    /*
+       TARJETAS PEQUEÑAS
+    */
 
-    gap: 18px;
+    grid-template-columns:
+        repeat(auto-fill, minmax(145px, 1fr));
+
+    gap: 14px;
 }
 
+
+/* ==========================
+   TARJETA
+========================== */
+
 .game {
-    position: relative;
+    min-width: 0;
 
     background: #11151c;
-    border: 1px solid #292f39;
-    border-radius: 16px;
+
+    border: 1px solid #292f38;
+    border-radius: 12px;
 
     overflow: hidden;
 
-    cursor: pointer;
-
-    transition:
-        transform .18s ease,
-        border-color .18s ease;
+    transition: .18s ease;
 }
 
 .game:hover {
-    transform: translateY(-4px);
     border-color: #5865f2;
+    transform: translateY(-3px);
 }
+
+
+/* ==========================
+   PORTADA
+========================== */
 
 .cover {
     width: 100%;
-    aspect-ratio: 3 / 4;
 
-    background:
-        linear-gradient(
-            135deg,
-            #191d27,
-            #080a0f
-        );
+    /*
+       MÁS PEQUEÑA
+    */
+
+    aspect-ratio: 1 / 1.25;
+
+    background: #181c24;
 
     overflow: hidden;
 }
@@ -154,85 +156,107 @@ header {
 .cover img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
+
     display: block;
 }
 
+
+/* ==========================
+   INFORMACIÓN
+========================== */
+
 .info {
-    padding: 13px;
+    padding: 9px;
 }
 
+
+/* NOMBRE DEBAJO */
+
 .game-name {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
+
+    text-align: center;
 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    margin-bottom: 7px;
 }
 
-.platform {
-    color: #7f8793;
-    font-size: 12px;
-    margin-top: 5px;
-}
+
+/* ==========================
+   BOTÓN JUGAR
+========================== */
 
 .play {
     width: 100%;
 
-    margin-top: 11px;
-
-    padding: 11px;
+    padding: 8px;
 
     border: 0;
-    border-radius: 10px;
+    border-radius: 8px;
 
     background: #5865f2;
     color: white;
 
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
 
     cursor: pointer;
 }
 
 .play:active {
-    transform: scale(.97);
+    transform: scale(.96);
 }
 
-/* =========================
+
+/* ==========================
    FAVORITO
-========================= */
+========================== */
 
 .favorite {
     position: absolute;
 
-    top: 10px;
-    right: 10px;
+    top: 7px;
+    right: 7px;
 
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
 
     border: 0;
     border-radius: 50%;
 
-    background: rgba(0,0,0,.65);
-    color: white;
+    background: rgba(0,0,0,.7);
 
-    font-size: 19px;
+    color: white;
 
     cursor: pointer;
 
-    z-index: 3;
+    z-index: 5;
 }
 
 .favorite.active {
     color: #ffd84d;
 }
 
-/* =========================
-   MODAL / EMULADOR
-========================= */
+
+/*
+   Necesario para posicionar
+   el favorito
+*/
+
+.game {
+    position: relative;
+}
+
+
+/* ==========================
+   EMULADOR
+========================== */
 
 #playerModal {
     position: fixed;
@@ -247,63 +271,59 @@ header {
 }
 
 .playerHeader {
-    height: 58px;
+    height: 56px;
+
     flex-shrink: 0;
 
     display: flex;
     align-items: center;
-
     justify-content: space-between;
 
-    padding: 0 15px;
+    padding: 0 12px;
 
     background: #10141b;
+
     border-bottom: 1px solid #272c35;
 }
 
 .playerTitle {
+    font-size: 14px;
     font-weight: 700;
-    font-size: 15px;
 
-    white-space: nowrap;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
-
-    max-width: 70%;
 }
 
 .close {
     border: 0;
 
     background: #252a33;
+
     color: white;
 
-    border-radius: 9px;
+    border-radius: 8px;
 
-    padding: 9px 13px;
+    padding: 8px 12px;
 
-    font-size: 14px;
     cursor: pointer;
 }
-
-/* =========================
-   ZONA DEL EMULADOR
-========================= */
 
 #player {
     position: relative;
 
     width: 100%;
-    height: calc(100vh - 58px);
+    height: calc(100vh - 56px);
 
     background: #000;
 
     overflow: hidden;
 }
 
-/* =========================
-   CARGA
-========================= */
+
+/* ==========================
+   PANTALLA DE CARGA
+========================== */
 
 #loading {
     position: absolute;
@@ -321,53 +341,45 @@ header {
 
     flex-direction: column;
 
-    padding: 25px;
-
     text-align: center;
 }
 
 .loading-icon {
-    font-size: 46px;
+    font-size: 42px;
 
-    animation:
-        pulse 1.2s infinite ease-in-out;
+    animation: pulse 1.2s infinite;
 }
 
 @keyframes pulse {
-    0%,100% {
-        transform: scale(1);
-        opacity: .7;
-    }
-
     50% {
-        transform: scale(1.12);
-        opacity: 1;
+        transform: scale(1.1);
     }
 }
 
 .loading-title {
-    margin-top: 13px;
+    margin-top: 10px;
 
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 800;
 }
 
 .loading-text {
-    margin-top: 7px;
+    margin-top: 6px;
 
     color: #858b96;
 
-    font-size: 13px;
+    font-size: 12px;
 }
+
 
 /* BARRA */
 
 .progress {
-    width: min(420px, 90%);
+    width: min(350px, 85%);
 
-    height: 8px;
+    height: 7px;
 
-    margin-top: 23px;
+    margin-top: 20px;
 
     background: #20242c;
 
@@ -383,91 +395,86 @@ header {
 
     background: #5865f2;
 
-    border-radius: 20px;
-
-    transition: width .25s ease;
+    transition: width .25s;
 }
 
 .percent {
-    margin-top: 9px;
+    margin-top: 8px;
 
-    font-size: 13px;
-
-    color: #9ba1ab;
-}
-
-/*
-   Dejamos un pequeño aviso
-   mientras EmulatorJS prepara
-   los controles.
-*/
-
-.loading-note {
-    margin-top: 15px;
-
-    color: #666d78;
+    color: #999;
 
     font-size: 12px;
 }
 
-/* =========================
-   MENSAJE DE ERROR
-========================= */
+
+/* ERROR */
 
 #error {
     display: none;
 
-    max-width: 450px;
+    color: #ff7070;
 
-    color: #ff7777;
+    margin-top: 15px;
 
-    line-height: 1.5;
+    max-width: 400px;
+
+    font-size: 13px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+
+/* ==========================
+   ANDROID
+========================== */
 
 @media (max-width: 600px) {
 
-    header {
-        padding: 0 14px;
-    }
-
-    .subtitle {
-        display: none;
-    }
-
     .container {
-        padding: 18px 12px 40px;
+        padding: 15px 9px;
     }
+
+    /*
+       3 JUEGOS POR FILA
+    */
+
+    .games {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 9px;
+    }
+
+    .info {
+        padding: 7px;
+    }
+
+    .game-name {
+        font-size: 12px;
+    }
+
+    .play {
+        font-size: 11px;
+        padding: 7px;
+    }
+
+    .favorite {
+        width: 27px;
+        height: 27px;
+
+        font-size: 14px;
+    }
+
+}
+
+
+/* TELÉFONOS MUY PEQUEÑOS */
+
+@media (max-width: 350px) {
 
     .games {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
-
-        gap: 12px;
     }
 
-    .game-name {
-        font-size: 14px;
-    }
-
-    .info {
-        padding: 10px;
-    }
-
-    .play {
-        padding: 10px;
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 360px) {
-
-    .games {
-        grid-template-columns: 1fr;
-    }
 }
 </style>
 </head>
@@ -483,7 +490,7 @@ header {
     </div>
 
     <div class="subtitle">
-        Juegos directamente en el navegador
+        Biblioteca
     </div>
 
 </header>
@@ -493,10 +500,10 @@ header {
 
     <div class="title">
 
-        <h1>🎮 Biblioteca</h1>
+        <h1>🎮 Juegos</h1>
 
         <p>
-            Toca un juego para comenzar
+            Selecciona un juego y pulsa JUGAR
         </p>
 
     </div>
@@ -508,7 +515,6 @@ header {
             id="search"
             type="search"
             placeholder="🔎 Buscar juego..."
-            autocomplete="off"
         >
 
     </div>
@@ -522,9 +528,9 @@ header {
 </main>
 
 
-<!-- =========================
+<!-- ==========================
      EMULADOR
-========================= -->
+========================== -->
 
 <div id="playerModal">
 
@@ -533,7 +539,6 @@ header {
         <div
             id="playerTitle"
             class="playerTitle">
-            Juego
         </div>
 
         <button
@@ -560,7 +565,9 @@ header {
             <div
                 id="loadingText"
                 class="loading-text">
+
                 Preparando Game Boy...
+
             </div>
 
 
@@ -581,11 +588,6 @@ header {
             </div>
 
 
-            <div class="loading-note">
-                Los controles aparecerán mientras se prepara el juego.
-            </div>
-
-
             <div id="error">
 
                 ❌ No se pudo cargar el juego.
@@ -594,7 +596,7 @@ header {
 
                 Comprueba que el archivo
                 <b>.gb</b>
-                exista en tu repositorio.
+                esté en el repositorio.
 
             </div>
 
@@ -608,38 +610,17 @@ header {
 <script>
 
 /* =========================================================
-   TUS JUEGOS
-   =========================================================
-
-   SOLO CAMBIA:
-
-   rom   = nombre de tu archivo .gb
-
-   cover = URL de la portada
-
-   Ejemplo:
-
-   {
-       id: "mijuego",
-       name: "Mi Juego",
-       rom: "mijuego.gb",
-       cover: "https://..."
-   }
-
-   Los archivos .gb están directamente junto al index.html.
-*/
-
+   JUEGOS
+========================================================= */
 
 const juegos = [
 
     {
         id: "juego1",
-        name: "Mi Juego 1",
-        rom: "Pokemon - Red Version (UE) [S][!].gb",
 
-        /*
-          PON AQUÍ TU IMAGEN
-        */
+        name: "Mi Juego 1",
+
+        rom: "juego1.gb",
 
         cover:
         "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
@@ -648,7 +629,9 @@ const juegos = [
 
     {
         id: "juego2",
+
         name: "Mi Juego 2",
+
         rom: "juego2.gb",
 
         cover:
@@ -658,9 +641,7 @@ const juegos = [
 ];
 
 
-/* =========================================================
-   ELEMENTOS
-========================================================= */
+/* ELEMENTOS */
 
 const gamesContainer =
     document.getElementById("games");
@@ -693,9 +674,7 @@ const errorBox =
     document.getElementById("error");
 
 
-/* =========================================================
-   FAVORITOS
-========================================================= */
+/* FAVORITOS */
 
 let favoritos =
     JSON.parse(
@@ -721,28 +700,8 @@ function mostrarJuegos(lista = juegos) {
 
     gamesContainer.innerHTML = "";
 
-    if (lista.length === 0) {
-
-        gamesContainer.innerHTML = `
-            <p style="
-                color:#858b96;
-                grid-column:1/-1;
-                text-align:center;
-                padding:30px;
-            ">
-                No se encontraron juegos.
-            </p>
-        `;
-
-        return;
-    }
-
 
     lista.forEach(juego => {
-
-        const esFavorito =
-            favoritos.includes(juego.id);
-
 
         const card =
             document.createElement("article");
@@ -750,13 +709,16 @@ function mostrarJuegos(lista = juegos) {
         card.className = "game";
 
 
+        const favorito =
+            favoritos.includes(juego.id);
+
+
         card.innerHTML = `
 
             <button
-                class="favorite ${esFavorito ? "active" : ""}"
-                title="Favorito">
+                class="favorite ${favorito ? "active" : ""}">
 
-                ${esFavorito ? "★" : "☆"}
+                ${favorito ? "★" : "☆"}
 
             </button>
 
@@ -768,19 +730,7 @@ function mostrarJuegos(lista = juegos) {
                     alt="${juego.name}"
                     loading="lazy"
                     onerror="
-                        this.src='data:image/svg+xml;charset=UTF-8,
-                        <svg xmlns=%22http://www.w3.org/2000/svg%22
-                        width=%22400%22 height=%22530%22>
-                        <rect width=%22100%%22 height=%22100%%22
-                        fill=%22%2311151c%22/>
-                        <text x=%2250%%22 y=%2250%%22
-                        dominant-baseline=%22middle%22
-                        text-anchor=%22middle%22
-                        fill=%22white%22
-                        font-size=%2222%22>
-                        GAME BOY
-                        </text>
-                        </svg>';
+                        this.style.display='none';
                     "
                 >
 
@@ -793,33 +743,38 @@ function mostrarJuegos(lista = juegos) {
                     ${juego.name}
                 </div>
 
-                <div class="platform">
-                    Nintendo Game Boy
-                </div>
 
+                <button
+                    class="play">
 
-                <button class="play">
                     ▶ JUGAR
+
                 </button>
 
             </div>
+
         `;
 
 
-        /* Favorito */
+        /* =================================================
+           FAVORITO
+           NO ABRE EL JUEGO
+        ================================================= */
 
-        const fav =
+        const favorite =
             card.querySelector(".favorite");
 
 
-        fav.addEventListener(
+        favorite.addEventListener(
             "click",
-            function(e) {
+            function(event) {
 
-                e.stopPropagation();
+                event.stopPropagation();
 
 
-                if (favoritos.includes(juego.id)) {
+                if (
+                    favoritos.includes(juego.id)
+                ) {
 
                     favoritos =
                         favoritos.filter(
@@ -828,7 +783,9 @@ function mostrarJuegos(lista = juegos) {
 
                 } else {
 
-                    favoritos.push(juego.id);
+                    favoritos.push(
+                        juego.id
+                    );
 
                 }
 
@@ -843,11 +800,23 @@ function mostrarJuegos(lista = juegos) {
         );
 
 
-        /* Abrir juego */
+        /* =================================================
+           IMPORTANTE:
 
-        card.addEventListener(
+           LA FOTO NO HACE NADA.
+
+           SOLO EL BOTÓN JUGAR ABRE EL EMULADOR.
+        ================================================= */
+
+        const play =
+            card.querySelector(".play");
+
+
+        play.addEventListener(
             "click",
-            function() {
+            function(event) {
+
+                event.stopPropagation();
 
                 abrirJuego(juego);
 
@@ -891,7 +860,7 @@ function filtrar(texto) {
 
 search.addEventListener(
     "input",
-    () => {
+    function() {
 
         mostrarJuegos(
             filtrar(search.value)
@@ -902,7 +871,7 @@ search.addEventListener(
 
 
 /* =========================================================
-   ABRIR EMULADOR
+   ABRIR JUEGO
 ========================================================= */
 
 function abrirJuego(juego) {
@@ -936,17 +905,7 @@ function abrirJuego(juego) {
 
 
     /*
-       Guardamos último juego.
-    */
-
-    localStorage.setItem(
-        "gb_ultimo_juego",
-        juego.id
-    );
-
-
-    /*
-       Configuración EmulatorJS
+       CONFIGURACIÓN
     */
 
     window.EJS_player =
@@ -961,33 +920,17 @@ function abrirJuego(juego) {
     window.EJS_gameName =
         juego.name;
 
-
-    /*
-       EmulatorJS desde CDN.
-
-       Más adelante puedes descargar
-       sus archivos y ponerlos en tu repo.
-    */
-
     window.EJS_pathtodata =
         "https://cdn.emulatorjs.org/stable/data/";
 
-
     window.EJS_startOnLoaded =
         true;
-
 
     window.EJS_controlScheme =
         "gameboy";
 
 
-    /*
-       Progreso visual.
-
-       No fingimos que sea una medición
-       exacta del archivo: avanza mientras
-       se inicializa EmulatorJS.
-    */
+    /* PROGRESO VISUAL */
 
     let progreso = 0;
 
@@ -998,11 +941,7 @@ function abrirJuego(juego) {
 
                 if (progreso < 90) {
 
-                    progreso +=
-                        Math.floor(
-                            Math.random() * 8
-                        ) + 2;
-
+                    progreso += 5;
 
                     if (progreso > 90) {
                         progreso = 90;
@@ -1022,10 +961,10 @@ function abrirJuego(juego) {
                         loadingText.textContent =
                             "Cargando emulador...";
 
-                    } else if (progreso < 65) {
+                    } else if (progreso < 70) {
 
                         loadingText.textContent =
-                            "Preparando Game Boy...";
+                            "Preparando controles...";
 
                     } else {
 
@@ -1037,14 +976,11 @@ function abrirJuego(juego) {
                 }
 
             },
-            300
+            250
         );
 
 
-    /*
-       Evitar cargar EmulatorJS
-       múltiples veces.
-    */
+    /* CARGAR EMULATORJS */
 
     const anterior =
         document.getElementById(
@@ -1056,26 +992,6 @@ function abrirJuego(juego) {
         anterior.remove();
     }
 
-
-    /*
-       Limpiamos instancias anteriores
-       del reproductor.
-    */
-
-    const viejo =
-        document.querySelector(
-            "#player > .ejs"
-        );
-
-
-    if (viejo) {
-        viejo.remove();
-    }
-
-
-    /*
-       Cargamos EmulatorJS
-    */
 
     const script =
         document.createElement("script");
@@ -1091,11 +1007,6 @@ function abrirJuego(juego) {
 
     script.onload =
         function() {
-
-            /*
-               Damos tiempo al emulador
-               para crear controles.
-            */
 
             setTimeout(
                 function() {
@@ -1114,14 +1025,14 @@ function abrirJuego(juego) {
 
 
                     loadingText.textContent =
-                        "¡Listo!";
+                        "¡Juego listo!";
 
 
                     /*
-                       Dejamos que el emulador
-                       termine de mostrar los
-                       controles antes de quitar
-                       la pantalla.
+                       Ocultar pantalla de carga
+                       después de que EmulatorJS
+                       haya tenido tiempo de crear
+                       su interfaz.
                     */
 
                     setTimeout(
@@ -1131,11 +1042,11 @@ function abrirJuego(juego) {
                                 "none";
 
                         },
-                        700
+                        800
                     );
 
                 },
-                1200
+                1500
             );
 
         };
@@ -1150,7 +1061,7 @@ function abrirJuego(juego) {
 
 
             loadingText.textContent =
-                "No se pudo cargar el emulador.";
+                "Error al cargar el emulador.";
 
 
             errorBox.style.display =
@@ -1173,16 +1084,6 @@ function abrirJuego(juego) {
 closePlayer.addEventListener(
     "click",
     function() {
-
-        playerModal.style.display =
-            "none";
-
-
-        /*
-           Recargamos el área del jugador
-           para evitar dejar una instancia
-           antigua ejecutándose.
-        */
 
         location.reload();
 
