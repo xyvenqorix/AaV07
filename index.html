@@ -1,84 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Game Boy Web</title>
 
-<link rel="stylesheet" href="includes/css/style.css">
-
+<link rel="stylesheet" href="includes/style.css">
 </head>
 
 <body>
 
 <header>
-
     <div class="header-left">
-
-        <div class="logo">
-            🎮 Game Boy Web
-        </div>
-
-        <div class="subtitle">
-            Biblioteca
-        </div>
-
+        <div class="logo">🎮 Game Boy Web</div>
+        <div class="subtitle">Biblioteca</div>
     </div>
 
     <button id="aboutButton" class="about-btn">
         ℹ️ Acerca de
     </button>
-
 </header>
-
 
 <main class="container">
 
     <div class="title">
-
         <h1>🎮 Juegos</h1>
-
-        <p>
-            Toca JUGAR para comenzar
-        </p>
-
+        <p>Toca JUGAR para comenzar</p>
     </div>
 
-
     <div class="search">
-
         <input
             id="search"
             type="search"
             placeholder="🔎 Buscar juego..."
             autocomplete="off"
         >
-
     </div>
 
-
-    <div
-        id="games"
-        class="games">
-    </div>
+    <div id="games" class="games"></div>
 
 </main>
 
-
 <footer>
-
-    © <strong>xyvenqorix</strong>
-    — Todos los derechos reservados.
-
+    © <strong>xyvenqorix</strong> — Todos los derechos reservados.
 </footer>
 
-
-<!-- =========================
-     ACERCA DE
-========================= -->
+<!-- ACERCA DE -->
 
 <div id="aboutModal">
 
@@ -86,35 +54,24 @@
 
         <div class="about-header">
 
-            <h2>
-                🎮 Acerca de Game Boy Web
-            </h2>
+            <h2>🎮 Acerca de Game Boy Web</h2>
 
-            <button
-                id="aboutClose"
-                class="about-close">
-
+            <button id="aboutClose" class="about-close">
                 ✕
-
             </button>
 
         </div>
 
-
         <p>
-            Game Boy Web es un emulador basado
-            en navegador diseñado para disfrutar
-            juegos de Game Boy directamente
-            desde la página web.
+            Game Boy Web es un emulador basado en navegador
+            diseñado para disfrutar juegos de Game Boy
+            directamente desde la página web.
         </p>
 
-
         <p>
-            Selecciona un juego y pulsa
-            <strong>JUGAR</strong> para iniciar
-            el emulador.
+            No necesitas instalar una aplicación adicional.
+            Selecciona un juego y pulsa <strong>JUGAR</strong>.
         </p>
-
 
         <div class="about-info">
 
@@ -135,25 +92,15 @@
 
         </div>
 
-
         <div class="social-title">
             🌐 Redes sociales
         </div>
 
-
         <div class="socials">
 
-            <a href="#" target="_blank">
-                📸 Instagram
-            </a>
-
-            <a href="#" target="_blank">
-                💻 GitHub
-            </a>
-
-            <a href="#" target="_blank">
-                ✈️ Telegram
-            </a>
+            <a href="#" target="_blank">📸 Instagram</a>
+            <a href="#" target="_blank">💻 GitHub</a>
+            <a href="#" target="_blank">✈️ Telegram</a>
 
         </div>
 
@@ -161,33 +108,23 @@
 
 </div>
 
-
-<!-- =========================
-     REPRODUCTOR
-========================= -->
+<!-- REPRODUCTOR -->
 
 <div id="playerModal">
 
     <div class="playerHeader">
 
-        <div
-            id="playerTitle"
-            class="playerTitle">
-        </div>
+        <div id="playerTitle" class="playerTitle"></div>
 
-
-        <button
-            id="closePlayer"
-            class="close">
-
+        <button id="closePlayer" class="close">
             ✕ Cerrar
-
         </button>
 
     </div>
 
-
     <div id="player">
+
+        <!-- CARGANDO DENTRO DEL EMULADOR -->
 
         <div id="loading">
 
@@ -195,45 +132,29 @@
                 Descargando recursos
             </div>
 
-
-            <div
-                id="loadingText"
-                class="loading-text">
-
+            <div id="loadingText" class="loading-text">
                 Preparando emulador...
-
             </div>
-
 
             <div class="progress">
 
-                <div
-                    id="progressBar"
-                    class="progress-bar">
-                </div>
+                <div id="progressBar" class="progress-bar"></div>
 
             </div>
 
-
-            <div
-                id="percent"
-                class="percent">
-
+            <div id="percent" class="percent">
                 0%
-
             </div>
-
 
             <div id="error">
 
-                ❌ No se pudieron cargar
-                los recursos.
+                ❌ No se pudieron cargar los recursos.
 
                 <br><br>
 
                 Comprueba que el archivo
                 <b>.gb</b>
-                exista en la raíz.
+                exista.
 
             </div>
 
@@ -243,9 +164,7 @@
 
 </div>
 
-
-<script src="includes/js/script.js"></script>
+<script src="includes/script.js"></script>
 
 </body>
-
 </html>
