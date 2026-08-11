@@ -12,11 +12,11 @@ const juegos = [
 
 
     {
-        id: "juego2",
+        id: "Super Mario",
 
-        name: "Mi Juego 2",
+        name: "Classic NES Series: Super Mario Bros.",
 
-        rom: "juego2.gb",
+        rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gb",
 
         cover: "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
     }
