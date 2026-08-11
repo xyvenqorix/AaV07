@@ -4,171 +4,1197 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mi Game Boy</title>
+<title>Game Boy Web</title>
 
 <style>
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-html,
 body {
     margin: 0;
-    width: 100%;
-    height: 100%;
-    background: #080a0c;
-    color: white;
-    font-family: Arial, sans-serif;
+    background: #080a0f;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-}
+/* =========================
+   CABECERA
+========================= */
 
 header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
     height: 64px;
+
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: #11151a;
-    border-bottom: 1px solid #292e35;
-    font-weight: bold;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    background: rgba(12,15,22,.96);
+    border-bottom: 1px solid #272c36;
+    backdrop-filter: blur(12px);
 }
+
+.logo {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.subtitle {
+    color: #858b96;
+    font-size: 13px;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 24px 18px 50px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 27px;
+}
+
+.title p {
+    margin: 7px 0 0;
+    color: #858b96;
+}
+
+/* =========================
+   BUSCADOR
+========================= */
+
+.search {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+.search input {
+    width: 100%;
+    padding: 14px 17px;
+
+    border: 1px solid #292f39;
+    border-radius: 13px;
+
+    background: #11151c;
+    color: white;
+
+    outline: none;
+    font-size: 15px;
+}
+
+.search input:focus {
+    border-color: #5865f2;
+}
+
+/* =========================
+   JUEGOS
+========================= */
+
+.games {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(190px, 1fr));
+
+    gap: 18px;
+}
+
+.game {
+    position: relative;
+
+    background: #11151c;
+    border: 1px solid #292f39;
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        border-color .18s ease;
+}
+
+.game:hover {
+    transform: translateY(-4px);
+    border-color: #5865f2;
+}
+
+.cover {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+
+    background:
+        linear-gradient(
+            135deg,
+            #191d27,
+            #080a0f
+        );
+
+    overflow: hidden;
+}
+
+.cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.info {
+    padding: 13px;
+}
+
+.game-name {
+    font-size: 16px;
+    font-weight: 700;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.platform {
+    color: #7f8793;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.play {
+    width: 100%;
+
+    margin-top: 11px;
+
+    padding: 11px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #5865f2;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.play:active {
+    transform: scale(.97);
+}
+
+/* =========================
+   FAVORITO
+========================= */
+
+.favorite {
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    width: 38px;
+    height: 38px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(0,0,0,.65);
+    color: white;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    z-index: 3;
+}
+
+.favorite.active {
+    color: #ffd84d;
+}
+
+/* =========================
+   MODAL / EMULADOR
+========================= */
+
+#playerModal {
+    position: fixed;
+    inset: 0;
+
+    background: #000;
+
+    z-index: 100;
+
+    display: none;
+    flex-direction: column;
+}
+
+.playerHeader {
+    height: 58px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 15px;
+
+    background: #10141b;
+    border-bottom: 1px solid #272c35;
+}
+
+.playerTitle {
+    font-weight: 700;
+    font-size: 15px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    max-width: 70%;
+}
+
+.close {
+    border: 0;
+
+    background: #252a33;
+    color: white;
+
+    border-radius: 9px;
+
+    padding: 9px 13px;
+
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* =========================
+   ZONA DEL EMULADOR
+========================= */
 
 #player {
+    position: relative;
+
     width: 100%;
-    flex: 1;
-    min-height: 0;
+    height: calc(100vh - 58px);
+
     background: #000;
+
+    overflow: hidden;
 }
+
+/* =========================
+   CARGA
+========================= */
 
 #loading {
-    position: fixed;
-    inset: 64px 0 0 0;
-    background: #080a0c;
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 20;
+
+    background: #050608;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     flex-direction: column;
-    z-index: 10;
+
+    padding: 25px;
+
+    text-align: center;
 }
 
-#loading h2 {
-    margin: 0 0 10px;
+.loading-icon {
+    font-size: 46px;
+
+    animation:
+        pulse 1.2s infinite ease-in-out;
 }
 
-#loading p {
-    color: #999;
-    margin: 0;
+@keyframes pulse {
+    0%,100% {
+        transform: scale(1);
+        opacity: .7;
+    }
+
+    50% {
+        transform: scale(1.12);
+        opacity: 1;
+    }
 }
+
+.loading-title {
+    margin-top: 13px;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.loading-text {
+    margin-top: 7px;
+
+    color: #858b96;
+
+    font-size: 13px;
+}
+
+/* BARRA */
+
+.progress {
+    width: min(420px, 90%);
+
+    height: 8px;
+
+    margin-top: 23px;
+
+    background: #20242c;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+
+    width: 0%;
+
+    background: #5865f2;
+
+    border-radius: 20px;
+
+    transition: width .25s ease;
+}
+
+.percent {
+    margin-top: 9px;
+
+    font-size: 13px;
+
+    color: #9ba1ab;
+}
+
+/*
+   Dejamos un pequeño aviso
+   mientras EmulatorJS prepara
+   los controles.
+*/
+
+.loading-note {
+    margin-top: 15px;
+
+    color: #666d78;
+
+    font-size: 12px;
+}
+
+/* =========================
+   MENSAJE DE ERROR
+========================= */
 
 #error {
     display: none;
-    color: #ff7070;
-    text-align: center;
-    max-width: 500px;
-    padding: 20px;
+
+    max-width: 450px;
+
+    color: #ff7777;
+
+    line-height: 1.5;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 0 14px;
+    }
+
+    .subtitle {
+        display: none;
+    }
+
+    .container {
+        padding: 18px 12px 40px;
+    }
+
+    .games {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+    }
+
+    .game-name {
+        font-size: 14px;
+    }
+
+    .info {
+        padding: 10px;
+    }
+
+    .play {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .games {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
 
+
 <body>
 
+
 <header>
-    🎮 Mi juego de Game Boy
+
+    <div class="logo">
+        🎮 Game Boy Web
+    </div>
+
+    <div class="subtitle">
+        Juegos directamente en el navegador
+    </div>
+
 </header>
 
-<div id="loading">
-    <h2>🎮 Cargando juego...</h2>
-    <p>Espera un momento</p>
 
-    <div id="error">
-        ❌ No se pudo cargar el juego.
-        <br><br>
-        Comprueba que <b>juego.gb</b> esté en la misma carpeta que
-        <b>index.html</b>.
+<main class="container">
+
+    <div class="title">
+
+        <h1>🎮 Biblioteca</h1>
+
+        <p>
+            Toca un juego para comenzar
+        </p>
+
     </div>
-</div>
 
-<div id="player"></div>
+
+    <div class="search">
+
+        <input
+            id="search"
+            type="search"
+            placeholder="🔎 Buscar juego..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <div
+        id="games"
+        class="games">
+    </div>
+
+</main>
+
+
+<!-- =========================
+     EMULADOR
+========================= -->
+
+<div id="playerModal">
+
+    <div class="playerHeader">
+
+        <div
+            id="playerTitle"
+            class="playerTitle">
+            Juego
+        </div>
+
+        <button
+            id="closePlayer"
+            class="close">
+            ✕ Cerrar
+        </button>
+
+    </div>
+
+
+    <div id="player">
+
+        <div id="loading">
+
+            <div class="loading-icon">
+                🎮
+            </div>
+
+            <div class="loading-title">
+                Cargando juego
+            </div>
+
+            <div
+                id="loadingText"
+                class="loading-text">
+                Preparando Game Boy...
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar">
+                </div>
+
+            </div>
+
+
+            <div
+                id="percent"
+                class="percent">
+                0%
+            </div>
+
+
+            <div class="loading-note">
+                Los controles aparecerán mientras se prepara el juego.
+            </div>
+
+
+            <div id="error">
+
+                ❌ No se pudo cargar el juego.
+
+                <br><br>
+
+                Comprueba que el archivo
+                <b>.gb</b>
+                exista en tu repositorio.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 <script>
 
-/*
-    CONFIGURACIÓN
-    --------------------------------
-    El archivo debe llamarse:
+/* =========================================================
+   TUS JUEGOS
+   =========================================================
 
-        juego.gb
+   SOLO CAMBIA:
 
-    y estar junto a index.html.
+   rom   = nombre de tu archivo .gb
+
+   cover = URL de la portada
+
+   Ejemplo:
+
+   {
+       id: "mijuego",
+       name: "Mi Juego",
+       rom: "mijuego.gb",
+       cover: "https://..."
+   }
+
+   Los archivos .gb están directamente junto al index.html.
 */
 
-window.EJS_player = "#player";
+
+const juegos = [
+
+    {
+        id: "juego1",
+        name: "Mi Juego 1",
+        rom: "juego1.gb",
+
+        /*
+          PON AQUÍ TU IMAGEN
+        */
+
+        cover:
+        "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
+    },
 
 
-// Game Boy ORIGINAL
-window.EJS_core = "gb";
+    {
+        id: "juego2",
+        name: "Mi Juego 2",
+        rom: "juego2.gb",
 
-
-// ROM
-window.EJS_gameUrl = "./Pokemon - Red Version (UE) [S][!].gb";
-
-
-// Nombre del juego
-window.EJS_gameName = "Mi juego";
-
-
-// Datos de EmulatorJS
-window.EJS_pathtodata =
-    "https://cdn.emulatorjs.org/stable/data/";
-
-
-// Iniciar automáticamente
-window.EJS_startOnLoaded = true;
-
-
-// Controles Game Boy
-window.EJS_controlScheme = "gameboy";
-
-
-// Ocultar pantalla de carga cuando termine
-window.EJS_onGameStart = function() {
-
-    const loading = document.getElementById("loading");
-
-    if (loading) {
-        loading.style.display = "none";
+        cover:
+        "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
     }
 
-};
+];
 
 
-// Cargar EmulatorJS
-const script = document.createElement("script");
+/* =========================================================
+   ELEMENTOS
+========================================================= */
 
-script.src =
-    "https://cdn.emulatorjs.org/stable/data/loader.js";
+const gamesContainer =
+    document.getElementById("games");
 
-script.onload = function() {
+const search =
+    document.getElementById("search");
 
-    console.log("EmulatorJS cargado");
+const playerModal =
+    document.getElementById("playerModal");
 
-};
+const playerTitle =
+    document.getElementById("playerTitle");
 
-script.onerror = function() {
+const closePlayer =
+    document.getElementById("closePlayer");
 
-    document.querySelector("#loading p").style.display =
+const loading =
+    document.getElementById("loading");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const percent =
+    document.getElementById("percent");
+
+const loadingText =
+    document.getElementById("loadingText");
+
+const errorBox =
+    document.getElementById("error");
+
+
+/* =========================================================
+   FAVORITOS
+========================================================= */
+
+let favoritos =
+    JSON.parse(
+        localStorage.getItem("gb_favoritos") || "[]"
+    );
+
+
+function guardarFavoritos() {
+
+    localStorage.setItem(
+        "gb_favoritos",
+        JSON.stringify(favoritos)
+    );
+
+}
+
+
+/* =========================================================
+   MOSTRAR JUEGOS
+========================================================= */
+
+function mostrarJuegos(lista = juegos) {
+
+    gamesContainer.innerHTML = "";
+
+    if (lista.length === 0) {
+
+        gamesContainer.innerHTML = `
+            <p style="
+                color:#858b96;
+                grid-column:1/-1;
+                text-align:center;
+                padding:30px;
+            ">
+                No se encontraron juegos.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    lista.forEach(juego => {
+
+        const esFavorito =
+            favoritos.includes(juego.id);
+
+
+        const card =
+            document.createElement("article");
+
+        card.className = "game";
+
+
+        card.innerHTML = `
+
+            <button
+                class="favorite ${esFavorito ? "active" : ""}"
+                title="Favorito">
+
+                ${esFavorito ? "★" : "☆"}
+
+            </button>
+
+
+            <div class="cover">
+
+                <img
+                    src="${juego.cover}"
+                    alt="${juego.name}"
+                    loading="lazy"
+                    onerror="
+                        this.src='data:image/svg+xml;charset=UTF-8,
+                        <svg xmlns=%22http://www.w3.org/2000/svg%22
+                        width=%22400%22 height=%22530%22>
+                        <rect width=%22100%%22 height=%22100%%22
+                        fill=%22%2311151c%22/>
+                        <text x=%2250%%22 y=%2250%%22
+                        dominant-baseline=%22middle%22
+                        text-anchor=%22middle%22
+                        fill=%22white%22
+                        font-size=%2222%22>
+                        GAME BOY
+                        </text>
+                        </svg>';
+                    "
+                >
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="game-name">
+                    ${juego.name}
+                </div>
+
+                <div class="platform">
+                    Nintendo Game Boy
+                </div>
+
+
+                <button class="play">
+                    ▶ JUGAR
+                </button>
+
+            </div>
+        `;
+
+
+        /* Favorito */
+
+        const fav =
+            card.querySelector(".favorite");
+
+
+        fav.addEventListener(
+            "click",
+            function(e) {
+
+                e.stopPropagation();
+
+
+                if (favoritos.includes(juego.id)) {
+
+                    favoritos =
+                        favoritos.filter(
+                            id => id !== juego.id
+                        );
+
+                } else {
+
+                    favoritos.push(juego.id);
+
+                }
+
+
+                guardarFavoritos();
+
+                mostrarJuegos(
+                    filtrar(search.value)
+                );
+
+            }
+        );
+
+
+        /* Abrir juego */
+
+        card.addEventListener(
+            "click",
+            function() {
+
+                abrirJuego(juego);
+
+            }
+        );
+
+
+        gamesContainer.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
+function filtrar(texto) {
+
+    texto =
+        texto
+        .toLowerCase()
+        .trim();
+
+
+    if (!texto) {
+        return juegos;
+    }
+
+
+    return juegos.filter(
+        juego =>
+            juego.name
+            .toLowerCase()
+            .includes(texto)
+    );
+
+}
+
+
+search.addEventListener(
+    "input",
+    () => {
+
+        mostrarJuegos(
+            filtrar(search.value)
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ABRIR EMULADOR
+========================================================= */
+
+function abrirJuego(juego) {
+
+    playerModal.style.display =
+        "flex";
+
+
+    playerTitle.textContent =
+        "🎮 " + juego.name;
+
+
+    loading.style.display =
+        "flex";
+
+
+    errorBox.style.display =
         "none";
 
-    document.querySelector("#error").style.display =
-        "block";
 
-};
+    progressBar.style.width =
+        "0%";
 
-document.body.appendChild(script);
+
+    percent.textContent =
+        "0%";
+
+
+    loadingText.textContent =
+        "Preparando Game Boy...";
+
+
+    /*
+       Guardamos último juego.
+    */
+
+    localStorage.setItem(
+        "gb_ultimo_juego",
+        juego.id
+    );
+
+
+    /*
+       Configuración EmulatorJS
+    */
+
+    window.EJS_player =
+        "#player";
+
+    window.EJS_core =
+        "gb";
+
+    window.EJS_gameUrl =
+        juego.rom;
+
+    window.EJS_gameName =
+        juego.name;
+
+
+    /*
+       EmulatorJS desde CDN.
+
+       Más adelante puedes descargar
+       sus archivos y ponerlos en tu repo.
+    */
+
+    window.EJS_pathtodata =
+        "https://cdn.emulatorjs.org/stable/data/";
+
+
+    window.EJS_startOnLoaded =
+        true;
+
+
+    window.EJS_controlScheme =
+        "gameboy";
+
+
+    /*
+       Progreso visual.
+
+       No fingimos que sea una medición
+       exacta del archivo: avanza mientras
+       se inicializa EmulatorJS.
+    */
+
+    let progreso = 0;
+
+
+    const intervalo =
+        setInterval(
+            function() {
+
+                if (progreso < 90) {
+
+                    progreso +=
+                        Math.floor(
+                            Math.random() * 8
+                        ) + 2;
+
+
+                    if (progreso > 90) {
+                        progreso = 90;
+                    }
+
+
+                    progressBar.style.width =
+                        progreso + "%";
+
+
+                    percent.textContent =
+                        progreso + "%";
+
+
+                    if (progreso < 35) {
+
+                        loadingText.textContent =
+                            "Cargando emulador...";
+
+                    } else if (progreso < 65) {
+
+                        loadingText.textContent =
+                            "Preparando Game Boy...";
+
+                    } else {
+
+                        loadingText.textContent =
+                            "Cargando juego...";
+
+                    }
+
+                }
+
+            },
+            300
+        );
+
+
+    /*
+       Evitar cargar EmulatorJS
+       múltiples veces.
+    */
+
+    const anterior =
+        document.getElementById(
+            "emulatorLoader"
+        );
+
+
+    if (anterior) {
+        anterior.remove();
+    }
+
+
+    /*
+       Limpiamos instancias anteriores
+       del reproductor.
+    */
+
+    const viejo =
+        document.querySelector(
+            "#player > .ejs"
+        );
+
+
+    if (viejo) {
+        viejo.remove();
+    }
+
+
+    /*
+       Cargamos EmulatorJS
+    */
+
+    const script =
+        document.createElement("script");
+
+
+    script.id =
+        "emulatorLoader";
+
+
+    script.src =
+        "https://cdn.emulatorjs.org/stable/data/loader.js";
+
+
+    script.onload =
+        function() {
+
+            /*
+               Damos tiempo al emulador
+               para crear controles.
+            */
+
+            setTimeout(
+                function() {
+
+                    clearInterval(
+                        intervalo
+                    );
+
+
+                    progressBar.style.width =
+                        "100%";
+
+
+                    percent.textContent =
+                        "100%";
+
+
+                    loadingText.textContent =
+                        "¡Listo!";
+
+
+                    /*
+                       Dejamos que el emulador
+                       termine de mostrar los
+                       controles antes de quitar
+                       la pantalla.
+                    */
+
+                    setTimeout(
+                        function() {
+
+                            loading.style.display =
+                                "none";
+
+                        },
+                        700
+                    );
+
+                },
+                1200
+            );
+
+        };
+
+
+    script.onerror =
+        function() {
+
+            clearInterval(
+                intervalo
+            );
+
+
+            loadingText.textContent =
+                "No se pudo cargar el emulador.";
+
+
+            errorBox.style.display =
+                "block";
+
+        };
+
+
+    document.body.appendChild(
+        script
+    );
+
+}
+
+
+/* =========================================================
+   CERRAR
+========================================================= */
+
+closePlayer.addEventListener(
+    "click",
+    function() {
+
+        playerModal.style.display =
+            "none";
+
+
+        /*
+           Recargamos el área del jugador
+           para evitar dejar una instancia
+           antigua ejecutándose.
+        */
+
+        location.reload();
+
+    }
+);
+
+
+/* =========================================================
+   INICIO
+========================================================= */
+
+mostrarJuegos();
 
 </script>
 
