@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Arcade GBA</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #08090d;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 950px;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    header p {
+      color: #999;
+      margin-top: 8px;
+    }
+
+    .card {
+      background: #11131a;
+      border: 1px solid #292c38;
+      border-radius: 18px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .warning {
+      background: #19150b;
+      border: 1px solid #80651c;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      color: #e9d58a;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .warning strong {
+      display: block;
+      color: #ffd84d;
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .btn {
+      display: inline-block;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 22px;
+      background: #5865f2;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    #game {
+      width: 100%;
+      min-height: 480px;
+      margin-top: 20px;
+      border-radius: 15px;
+      overflow: hidden;
+      background: #000;
+      display: none;
+    }
+
+    #status {
+      margin-top: 15px;
+      color: #999;
+      font-size: 14px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 600px) {
+      .app {
+        padding: 10px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      #game {
+        min-height: 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <h1>🎮 Mi Arcade GBA</h1>
+    <p>Juega directamente desde el navegador</p>
+  </header>
+
+  <div class="card">
+
+    <div id="warningBox" class="warning">
+      <strong>⚠️ Aviso</strong>
+
+      Esta página no proporciona juegos ni ROMs.
+      Utiliza únicamente archivos de juegos que tengas
+      legalmente o contenido que tengas autorización para utilizar.
+
+      <br><br>
+
+      El archivo seleccionado se carga en tu navegador.
+    </div>
+
+    <label class="btn" for="romInput">
+      🎮 Seleccionar juego GBA
+    </label>
+
+    <input
+      id="romInput"
+      type="file"
+      accept=".gba,.zip"
+    >
+
+    <div id="status">
+      Selecciona un archivo .gba para comenzar.
+    </div>
+
+    <div id="game"></div>
+
+  </div>
+</div>
+
+
+<script>
+
+  const romInput = document.getElementById("romInput");
+  const status = document.getElementById("status");
+  const game = document.getElementById("game");
+  const warningBox = document.getElementById("warningBox");
+
+  romInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    const extension = file.name.toLowerCase();
+
+    if (!extension.endsWith(".gba") &&
+        !extension.endsWith(".zip")) {
+
+      alert("⚠️ Selecciona un archivo GBA (.gba).");
+      return;
+    }
+
+    const confirmacion = confirm(
+      "⚠️ Aviso\n\n" +
+      "Asegúrate de que tienes derecho a utilizar este archivo.\n\n" +
+      "¿Quieres cargarlo?"
+    );
+
+    if (!confirmacion) {
+      romInput.value = "";
+      return;
+    }
+
+    status.textContent = "⏳ Cargando " + file.name + "...";
+
+    warningBox.classList.add("hidden");
+    game.style.display = "block";
+
+    /*
+      Creamos una URL temporal para que el emulador
+      pueda leer el archivo seleccionado.
+    */
+    const romURL = URL.createObjectURL(file);
+
+    /*
+      Configuración de EmulatorJS
+    */
+
+    window.EJS_player = "#game";
+
+    // Game Boy Advance
+    window.EJS_core = "gba";
+
+    // No necesitamos BIOS para esta prueba
+    window.EJS_biosUrl = "";
+
+    // ROM seleccionada por el usuario
+    window.EJS_gameUrl = romURL;
+
+    // Datos del emulador desde el CDN oficial
+    window.EJS_pathtodata =
+      "https://cdn.emulatorjs.org/stable/data/";
+
+    window.EJS_gameName = file.name;
+
+    window.EJS_startOnLoaded = true;
+
+    window.EJS_controlScheme = "gba";
+
+    /*
+      Cargamos EmulatorJS solamente después
+      de que el usuario haya elegido el juego.
+    */
+
+    const oldScript = document.getElementById("emulatorLoader");
+
+    if (oldScript) {
+      oldScript.remove();
+    }
+
+    const script = document.createElement("script");
+
+    script.id = "emulatorLoader";
+
+    script.src =
+      "https://cdn.emulatorjs.org/stable/data/loader.js";
+
+    script.onload = function () {
+      status.textContent =
+        "🎮 " + file.name + " cargado.";
+    };
+
+    script.onerror = function () {
+      status.textContent =
+        "❌ No se pudo cargar EmulatorJS.";
+    };
+
+    document.body.appendChild(script);
+
+  });
+
+</script>
+
+</body>
+</html>
