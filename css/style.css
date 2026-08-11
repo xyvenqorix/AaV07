@@ -1,0 +1,761 @@
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+    margin:0;
+    padding:0;
+
+    background:#080a0f;
+    color:white;
+
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+}
+
+
+/* =========================
+   CABECERA
+========================= */
+
+header{
+    height:60px;
+
+    padding:0 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:#10141b;
+
+    border-bottom:1px solid #272c35;
+
+    position:sticky;
+    top:0;
+
+    z-index:50;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:800;
+}
+
+.subtitle{
+    color:#7f8792;
+    font-size:12px;
+}
+
+.about-btn{
+    border:1px solid #343a46;
+
+    background:#191e27;
+    color:white;
+
+    padding:8px 12px;
+
+    border-radius:8px;
+
+    font-size:12px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.about-btn:hover{
+    background:#252c38;
+}
+
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.container{
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:20px 14px 50px;
+}
+
+.title{
+    margin-bottom:15px;
+}
+
+.title h1{
+    margin:0;
+
+    font-size:24px;
+}
+
+.title p{
+    margin:5px 0 0;
+
+    color:#7f8792;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   BUSCADOR
+========================= */
+
+.search{
+    margin-bottom:18px;
+}
+
+.search input{
+    width:100%;
+
+    padding:12px 15px;
+
+    border-radius:11px;
+
+    border:1px solid #292f38;
+
+    outline:none;
+
+    background:#11151c;
+
+    color:white;
+
+    font-size:14px;
+}
+
+.search input:focus{
+    border-color:#5865f2;
+}
+
+
+/* =========================
+   JUEGOS
+========================= */
+
+.games{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(145px,1fr));
+
+    gap:14px;
+}
+
+
+/* =========================
+   TARJETA
+========================= */
+
+.game{
+    position:relative;
+
+    min-width:0;
+
+    background:#11151c;
+
+    border:1px solid #292f38;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    transition:
+        transform .18s ease,
+        border-color .18s ease;
+}
+
+.game:hover{
+    transform:translateY(-3px);
+
+    border-color:#5865f2;
+}
+
+
+/* =========================
+   PORTADA
+========================= */
+
+.cover{
+    width:100%;
+
+    aspect-ratio:1 / 1.25;
+
+    background:#181c24;
+
+    overflow:hidden;
+}
+
+.cover img{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+}
+
+
+/* =========================
+   INFORMACIÓN
+========================= */
+
+.info{
+    padding:9px;
+}
+
+.game-name{
+    font-size:14px;
+
+    font-weight:700;
+
+    text-align:center;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    margin-bottom:7px;
+}
+
+
+/* =========================
+   JUGAR
+========================= */
+
+.play{
+    width:100%;
+
+    padding:8px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:#5865f2;
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.play:active{
+    transform:scale(.96);
+}
+
+
+/* =========================
+   FAVORITO
+========================= */
+
+.favorite{
+    position:absolute;
+
+    top:7px;
+    right:7px;
+
+    width:30px;
+    height:30px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.72);
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    z-index:5;
+}
+
+.favorite.active{
+    color:#ffd84d;
+}
+
+
+/* =========================
+   EMULADOR
+========================= */
+
+#playerModal{
+    position:fixed;
+
+    inset:0;
+
+    z-index:100;
+
+    display:none;
+
+    flex-direction:column;
+
+    background:#000;
+}
+
+.playerHeader{
+    height:56px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 12px;
+
+    background:#10141b;
+
+    border-bottom:1px solid #272c35;
+}
+
+.playerTitle{
+    max-width:65%;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+
+    font-size:14px;
+
+    font-weight:700;
+}
+
+.close{
+    border:0;
+
+    background:#252a33;
+
+    color:white;
+
+    border-radius:8px;
+
+    padding:8px 12px;
+
+    cursor:pointer;
+}
+
+
+/* =========================
+   PANTALLA GAME BOY
+========================= */
+
+#player{
+    position:relative;
+
+    width:100%;
+
+    height:calc(100vh - 56px);
+
+    background:#000;
+
+    overflow:hidden;
+}
+
+
+/* =========================
+   DESCARGANDO RECURSOS
+========================= */
+
+#loading{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    z-index:9999;
+
+    width:min(390px,88%);
+
+    padding:15px 18px;
+
+    background:rgba(5,6,8,.92);
+
+    border:1px solid rgba(255,255,255,.14);
+
+    border-radius:10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.65);
+
+    backdrop-filter:blur(5px);
+
+    pointer-events:none;
+}
+
+.loading-title{
+    margin:0;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    letter-spacing:.2px;
+}
+
+.loading-text{
+    margin-top:5px;
+
+    color:#9299a5;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   BARRA
+========================= */
+
+.progress{
+    width:100%;
+
+    height:15px;
+
+    margin-top:12px;
+
+    padding:2px;
+
+    background:#11151c;
+
+    border:1px solid #343a46;
+
+    border-radius:3px;
+
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+
+    width:0%;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #5865f2 0px,
+            #5865f2 8px,
+            #7884ff 8px,
+            #7884ff 11px
+        );
+
+    transition:width .18s linear;
+
+    border-radius:2px;
+}
+
+
+/* =========================
+   PORCENTAJE
+========================= */
+
+.percent{
+    margin-top:6px;
+
+    color:#d7dbe2;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:.5px;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+#error{
+    display:none;
+
+    max-width:420px;
+
+    margin-top:12px;
+
+    color:#ff7070;
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+
+/* =========================
+   ACERCA DE
+========================= */
+
+#aboutModal{
+    position:fixed;
+
+    inset:0;
+
+    z-index:200;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.75);
+}
+
+.about-box{
+    width:min(440px,100%);
+
+    background:#11151c;
+
+    border:1px solid #303640;
+
+    border-radius:16px;
+
+    padding:22px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.5);
+}
+
+.about-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:15px;
+}
+
+.about-header h2{
+    margin:0;
+
+    font-size:20px;
+}
+
+.about-close{
+    width:32px;
+    height:32px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:#252a33;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+}
+
+.about-box p{
+    color:#a2a8b2;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    margin:8px 0;
+}
+
+.about-info{
+    margin-top:15px;
+
+    padding:12px;
+
+    background:#0b0e13;
+
+    border-radius:10px;
+
+    border:1px solid #252b34;
+}
+
+.about-info strong{
+    color:white;
+}
+
+.social-title{
+    margin-top:18px;
+
+    margin-bottom:9px;
+
+    font-size:13px;
+
+    font-weight:700;
+}
+
+.socials{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+}
+
+.socials a{
+    text-decoration:none;
+
+    text-align:center;
+
+    padding:9px 5px;
+
+    border-radius:8px;
+
+    background:#191e27;
+
+    border:1px solid #2b313b;
+
+    color:white;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.socials a:hover{
+    border-color:#5865f2;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+
+    padding:25px 15px 30px;
+
+    border-top:1px solid #20252d;
+
+    color:#707783;
+
+    font-size:11px;
+}
+
+footer strong{
+    color:#aeb4be;
+}
+
+
+/* =========================
+   ANDROID
+========================= */
+
+@media(max-width:600px){
+
+    header{
+        padding:0 10px;
+    }
+
+    .logo{
+        font-size:16px;
+    }
+
+    .subtitle{
+        display:none;
+    }
+
+    .about-btn{
+        padding:7px 9px;
+
+        font-size:11px;
+    }
+
+    .container{
+        padding:15px 9px 40px;
+    }
+
+    .games{
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+
+        gap:9px;
+    }
+
+    .info{
+        padding:7px;
+    }
+
+    .game-name{
+        font-size:12px;
+    }
+
+    .play{
+        padding:7px;
+
+        font-size:11px;
+    }
+
+    .favorite{
+        width:27px;
+        height:27px;
+
+        font-size:14px;
+    }
+
+    #loading{
+        width:86%;
+
+        padding:13px 14px;
+    }
+}
+
+
+/* =========================
+   TELÉFONOS PEQUEÑOS
+========================= */
+
+@media(max-width:350px){
+
+    .games{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+    .socials{
+        grid-template-columns:1fr;
+    }
+      }
