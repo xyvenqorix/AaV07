@@ -247,29 +247,72 @@ search.addEventListener(
 
 function configurarEmulador(juego){
 
+    /*
+       Si el juego no tiene "system",
+       usamos Game Boy como opción
+       predeterminada.
+    */
+
+    const sistema =
+        (juego.system || "gb").toLowerCase();
+
+
     window.EJS_player =
         "#player";
 
+
+    /*
+       Núcleo que utilizará EmulatorJS.
+
+       gb  = Game Boy
+       gba = Game Boy Advance
+       nes = NES
+    */
+
     window.EJS_core =
-        "gb";
+        sistema;
+
 
     window.EJS_gameUrl =
         juego.rom;
 
+
     window.EJS_gameName =
         juego.name;
 
+
     window.EJS_gameID =
-        "gameboy_" + juego.id;
+        "game_" + juego.id;
+
 
     window.EJS_pathtodata =
         "https://cdn.emulatorjs.org/stable/data/";
 
+
     window.EJS_startOnLoaded =
         true;
 
-    window.EJS_controlScheme =
-        "gameboy";
+
+    /*
+       Controles según sistema
+    */
+
+    if(sistema === "nes"){
+
+        window.EJS_controlScheme =
+            "nes";
+
+    }else if(sistema === "gba"){
+
+        window.EJS_controlScheme =
+            "gba";
+
+    }else{
+
+        window.EJS_controlScheme =
+            "gameboy";
+
+    }
 
 }
 
@@ -291,13 +334,23 @@ function abrirJuego(juego){
 
     errorBox.style.display = "none";
 
-    progressBar.style.width = "0%";
 
-    percent.textContent = "0%";
+    progressBar.style.width =
+        "0%";
+
+
+    percent.textContent =
+        "0%";
+
 
     loadingText.textContent =
         "Preparando emulador...";
 
+
+    /*
+       Configuramos el núcleo antes
+       de cargar EmulatorJS.
+    */
 
     configurarEmulador(juego);
 
@@ -360,7 +413,7 @@ function abrirJuego(juego){
 
 
     /* =====================================================
-       CARGAR EMULATORJS
+       LIMPIAR EMULATORJS ANTERIOR
     ===================================================== */
 
     const anterior =
@@ -375,6 +428,30 @@ function abrirJuego(juego){
 
     }
 
+
+    /*
+       Limpiar el reproductor antes
+       de iniciar otro juego.
+    */
+
+    const elementosAnteriores =
+        document.querySelectorAll(
+            "#player > *:not(#loading)"
+        );
+
+
+    elementosAnteriores.forEach(
+        elemento => {
+
+            elemento.remove();
+
+        }
+    );
+
+
+    /* =====================================================
+       CARGAR EMULATORJS
+    ===================================================== */
 
     const script =
         document.createElement("script");
@@ -403,9 +480,13 @@ function abrirJuego(juego){
             }
 
 
-            progressBar.style.width = "100%";
+            progressBar.style.width =
+                "100%";
 
-            percent.textContent = "100%";
+
+            percent.textContent =
+                "100%";
+
 
             loadingText.textContent =
                 "Recursos listos";
@@ -413,7 +494,8 @@ function abrirJuego(juego){
 
             setTimeout(() => {
 
-                loading.style.display = "none";
+                loading.style.display =
+                    "none";
 
             },800);
 
@@ -469,7 +551,8 @@ closePlayer.addEventListener(
         }
 
 
-        playerModal.style.display = "none";
+        playerModal.style.display =
+            "none";
 
 
         location.reload();
@@ -483,20 +566,27 @@ closePlayer.addEventListener(
 ========================================================= */
 
 const aboutButton =
-    document.getElementById("aboutButton");
+    document.getElementById(
+        "aboutButton"
+    );
 
 const aboutModal =
-    document.getElementById("aboutModal");
+    document.getElementById(
+        "aboutModal"
+    );
 
 const aboutClose =
-    document.getElementById("aboutClose");
+    document.getElementById(
+        "aboutClose"
+    );
 
 
 aboutButton.addEventListener(
     "click",
     () => {
 
-        aboutModal.style.display = "flex";
+        aboutModal.style.display =
+            "flex";
 
     }
 );
@@ -506,7 +596,8 @@ aboutClose.addEventListener(
     "click",
     () => {
 
-        aboutModal.style.display = "none";
+        aboutModal.style.display =
+            "none";
 
     }
 );
@@ -518,7 +609,8 @@ aboutModal.addEventListener(
 
         if(event.target === aboutModal){
 
-            aboutModal.style.display = "none";
+            aboutModal.style.display =
+                "none";
 
         }
 
