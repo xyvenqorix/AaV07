@@ -7,6 +7,7 @@
 <title>Game Boy Web</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -44,6 +45,12 @@ header {
     z-index: 50;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .logo {
     font-size: 20px;
     font-weight: 800;
@@ -52,6 +59,25 @@ header {
 .subtitle {
     color: #7f8792;
     font-size: 12px;
+}
+
+.about-btn {
+    border: 1px solid #343a46;
+    background: #191e27;
+    color: white;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.about-btn:hover {
+    background: #252c38;
 }
 
 
@@ -140,8 +166,9 @@ header {
 
     overflow: hidden;
 
-    transition: transform .18s ease,
-                border-color .18s ease;
+    transition:
+        transform .18s ease,
+        border-color .18s ease;
 }
 
 .game:hover {
@@ -354,6 +381,7 @@ header {
 }
 
 @keyframes pulse {
+
     0%, 100% {
         transform: scale(1);
     }
@@ -361,6 +389,7 @@ header {
     50% {
         transform: scale(1.1);
     }
+
 }
 
 .loading-title {
@@ -417,45 +446,6 @@ header {
 
 
 /* =========================
-   BOTONES DE GUARDADO
-========================= */
-
-.saveTools {
-    position: absolute;
-
-    left: 10px;
-    top: 10px;
-
-    z-index: 30;
-
-    display: flex;
-    gap: 7px;
-
-    opacity: .92;
-}
-
-.saveTools button {
-    border: 1px solid #343a46;
-
-    background: rgba(15,18,24,.92);
-
-    color: white;
-
-    border-radius: 8px;
-
-    padding: 7px 9px;
-
-    font-size: 11px;
-
-    cursor: pointer;
-}
-
-.saveTools button:active {
-    transform: scale(.95);
-}
-
-
-/* =========================
    ERROR
 ========================= */
 
@@ -475,10 +465,183 @@ header {
 
 
 /* =========================
+   ACERCA DE
+========================= */
+
+#aboutModal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 200;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.75);
+}
+
+.about-box {
+    width: min(440px, 100%);
+
+    background: #11151c;
+
+    border: 1px solid #303640;
+
+    border-radius: 16px;
+
+    padding: 22px;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+.about-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+.about-header h2 {
+    margin: 0;
+
+    font-size: 20px;
+}
+
+.about-close {
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background: #252a33;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.about-box p {
+    color: #a2a8b2;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin: 8px 0;
+}
+
+.about-info {
+    margin-top: 15px;
+
+    padding: 12px;
+
+    background: #0b0e13;
+
+    border-radius: 10px;
+
+    border: 1px solid #252b34;
+}
+
+.about-info strong {
+    color: white;
+}
+
+.social-title {
+    margin-top: 18px;
+
+    margin-bottom: 9px;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.socials {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+.socials a {
+    text-decoration: none;
+
+    text-align: center;
+
+    padding: 9px 5px;
+
+    border-radius: 8px;
+
+    background: #191e27;
+
+    border: 1px solid #2b313b;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.socials a:hover {
+    border-color: #5865f2;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+
+    padding: 25px 15px 30px;
+
+    border-top: 1px solid #20252d;
+
+    color: #707783;
+
+    font-size: 11px;
+}
+
+footer strong {
+    color: #aeb4be;
+}
+
+
+/* =========================
    ANDROID
 ========================= */
 
 @media (max-width: 600px) {
+
+    header {
+        padding: 0 10px;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .subtitle {
+        display: none;
+    }
+
+    .about-btn {
+        padding: 7px 9px;
+        font-size: 11px;
+    }
 
     .container {
         padding: 15px 9px 40px;
@@ -510,21 +673,12 @@ header {
         font-size: 14px;
     }
 
-    .saveTools {
-        left: 5px;
-        top: 5px;
-
-        gap: 4px;
-    }
-
-    .saveTools button {
-        padding: 6px 7px;
-        font-size: 10px;
-    }
 }
 
 
-/* TELÉFONOS MUY PEQUEÑOS */
+/* =========================
+   TELÉFONOS MUY PEQUEÑOS
+========================= */
 
 @media (max-width: 350px) {
 
@@ -532,7 +686,13 @@ header {
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
     }
+
+    .socials {
+        grid-template-columns: 1fr;
+    }
+
 }
+
 </style>
 </head>
 
@@ -540,18 +700,39 @@ header {
 <body>
 
 
+<!-- =========================
+     CABECERA
+========================= -->
+
 <header>
 
-    <div class="logo">
-        🎮 Game Boy Web
+    <div class="header-left">
+
+        <div class="logo">
+            🎮 Game Boy Web
+        </div>
+
+        <div class="subtitle">
+            Biblioteca
+        </div>
+
     </div>
 
-    <div class="subtitle">
-        Biblioteca
-    </div>
+
+    <button
+        id="aboutButton"
+        class="about-btn">
+
+        ℹ️ Acerca de
+
+    </button>
 
 </header>
 
+
+<!-- =========================
+     CONTENIDO
+========================= -->
 
 <main class="container">
 
@@ -581,9 +762,125 @@ header {
     <div
         id="games"
         class="games">
+
     </div>
 
 </main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    © <strong>xyvenqorix</strong> — Todos los derechos reservados.
+
+</footer>
+
+
+<!-- =========================
+     VENTANA ACERCA DE
+========================= -->
+
+<div id="aboutModal">
+
+    <div class="about-box">
+
+        <div class="about-header">
+
+            <h2>
+                🎮 Acerca de Game Boy Web
+            </h2>
+
+            <button
+                id="aboutClose"
+                class="about-close">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <p>
+            Game Boy Web es un emulador basado en navegador
+            diseñado para disfrutar juegos de Game Boy
+            directamente desde la página web.
+        </p>
+
+
+        <p>
+            No necesitas instalar una aplicación adicional.
+            Selecciona un juego y pulsa <strong>JUGAR</strong>
+            para iniciar el emulador.
+        </p>
+
+
+        <div class="about-info">
+
+            <p>
+                <strong>Emulador:</strong>
+                EmulatorJS
+            </p>
+
+            <p>
+                <strong>Sistema:</strong>
+                Nintendo Game Boy
+            </p>
+
+            <p>
+                <strong>Desarrollado por:</strong>
+                xyvenqorix
+            </p>
+
+        </div>
+
+
+        <div class="social-title">
+            🌐 Redes sociales
+        </div>
+
+
+        <div class="socials">
+
+            <!-- CAMBIA LOS # POR TUS ENLACES -->
+
+            <a
+                href="#"
+                target="_blank"
+                rel="noopener">
+
+                📸 Instagram
+
+            </a>
+
+
+            <a
+                href="#"
+                target="_blank"
+                rel="noopener">
+
+                💻 GitHub
+
+            </a>
+
+
+            <a
+                href="#"
+                target="_blank"
+                rel="noopener">
+
+                ✈️ Telegram
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 <!-- =========================
@@ -599,6 +896,7 @@ header {
             class="playerTitle">
         </div>
 
+
         <button
             id="closePlayer"
             class="close">
@@ -612,7 +910,10 @@ header {
 
     <div id="player">
 
-        
+
+        <!-- =====================
+             PANTALLA DE CARGA
+        ====================== -->
 
         <div id="loading">
 
@@ -620,9 +921,11 @@ header {
                 🎮
             </div>
 
+
             <div class="loading-title">
                 Cargando juego
             </div>
+
 
             <div
                 id="loadingText"
@@ -673,20 +976,10 @@ header {
 
 <script>
 
+
 /* =========================================================
    TUS JUEGOS
-   =========================================================
-
-   Tus archivos deben estar junto a index.html:
-
-       index.html
-       juego1.gb
-       juego2.gb
-
-   Para cambiar las portadas solo cambia
-   la URL de "cover".
 ========================================================= */
-
 
 const juegos = [
 
@@ -695,7 +988,8 @@ const juegos = [
 
         name: "Pokemon Rojo",
 
-        rom: "Pokemon - Red Version (UE) [S][!].gb",
+        rom:
+        "Pokemon - Red Version (UE) [S][!].gb",
 
         cover:
         "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
@@ -707,7 +1001,8 @@ const juegos = [
 
         name: "Mi Juego 2",
 
-        rom: "juego2.gb",
+        rom:
+        "juego2.gb",
 
         cover:
         "https://i.imgur.com/REEMPLAZA-ESTO.jpg"
@@ -750,12 +1045,6 @@ const loadingText =
 const errorBox =
     document.getElementById("error");
 
-const saveButton =
-    document.getElementById("saveButton");
-
-const loadButton =
-    document.getElementById("loadButton");
-
 
 /* =========================================================
    FAVORITOS
@@ -778,14 +1067,10 @@ function guardarFavoritos() {
 
 
 /* =========================================================
-   JUEGO ACTUAL
+   VARIABLES
 ========================================================= */
 
-let juegoActual = null;
-
 let progresoInterval = null;
-
-let autoSaveInterval = null;
 
 
 /* =========================================================
@@ -800,14 +1085,18 @@ function mostrarJuegos(lista = juegos) {
     if (lista.length === 0) {
 
         gamesContainer.innerHTML = `
+
             <p style="
                 color:#858b96;
                 grid-column:1/-1;
                 text-align:center;
                 padding:30px;
             ">
+
                 No se encontraron juegos.
+
             </p>
+
         `;
 
         return;
@@ -854,12 +1143,13 @@ function mostrarJuegos(lista = juegos) {
             <div class="info">
 
                 <div class="game-name">
+
                     ${juego.name}
+
                 </div>
 
 
-                <button
-                    class="play">
+                <button class="play">
 
                     ▶ JUGAR
 
@@ -870,11 +1160,9 @@ function mostrarJuegos(lista = juegos) {
         `;
 
 
-        /*
+        /* =====================
            FAVORITO
-
-           No abre el juego.
-        */
+        ====================== */
 
         const favorite =
             card.querySelector(".favorite");
@@ -907,6 +1195,7 @@ function mostrarJuegos(lista = juegos) {
 
                 guardarFavoritos();
 
+
                 mostrarJuegos(
                     filtrar(search.value)
                 );
@@ -915,12 +1204,9 @@ function mostrarJuegos(lista = juegos) {
         );
 
 
-        /*
-           IMPORTANTE:
-
-           SOLO EL BOTÓN JUGAR
-           ABRE EL EMULADOR.
-        */
+        /* =====================
+           SOLO JUGAR ABRE EL EMULADOR
+        ====================== */
 
         const play =
             card.querySelector(".play");
@@ -958,7 +1244,9 @@ function filtrar(texto) {
 
 
     if (!texto) {
+
         return juegos;
+
     }
 
 
@@ -985,7 +1273,7 @@ search.addEventListener(
 
 
 /* =========================================================
-   CONFIGURACIÓN DEL EMULADOR
+   CONFIGURAR EMULADOR
 ========================================================= */
 
 function configurarEmulador(juego) {
@@ -1003,20 +1291,9 @@ function configurarEmulador(juego) {
         juego.name;
 
 
-    /*
-       ID ÚNICO.
-
-       Esto ayuda a que cada juego
-       tenga sus propios datos.
-    */
-
     window.EJS_gameID =
         "gameboy_" + juego.id;
 
-
-    /*
-       EmulatorJS.
-    */
 
     window.EJS_pathtodata =
         "https://cdn.emulatorjs.org/stable/data/";
@@ -1029,18 +1306,6 @@ function configurarEmulador(juego) {
     window.EJS_controlScheme =
         "gameboy";
 
-
-    /*
-       Mostrar botones del emulador.
-    */
-
-    window.EJS_defaultOptions = {
-
-        "save-state-location":
-            "browser"
-
-    };
-
 }
 
 
@@ -1049,9 +1314,6 @@ function configurarEmulador(juego) {
 ========================================================= */
 
 function abrirJuego(juego) {
-
-    juegoActual = juego;
-
 
     playerModal.style.display =
         "flex";
@@ -1084,9 +1346,9 @@ function abrirJuego(juego) {
     configurarEmulador(juego);
 
 
-    /*
-       Progreso visual de preparación.
-    */
+    /* =====================
+       PROGRESO VISUAL
+    ====================== */
 
     let progreso = 0;
 
@@ -1110,7 +1372,9 @@ function abrirJuego(juego) {
 
 
                     if (progreso > 90) {
+
                         progreso = 90;
+
                     }
 
 
@@ -1127,12 +1391,16 @@ function abrirJuego(juego) {
                         loadingText.textContent =
                             "Cargando emulador...";
 
-                    } else if (progreso < 60) {
+                    }
+
+                    else if (progreso < 60) {
 
                         loadingText.textContent =
                             "Preparando controles...";
 
-                    } else {
+                    }
+
+                    else {
 
                         loadingText.textContent =
                             "Cargando juego...";
@@ -1146,9 +1414,9 @@ function abrirJuego(juego) {
         );
 
 
-    /*
-       Cargar EmulatorJS.
-    */
+    /* =====================
+       CARGAR EMULATORJS
+    ====================== */
 
     const anterior =
         document.getElementById(
@@ -1157,7 +1425,9 @@ function abrirJuego(juego) {
 
 
     if (anterior) {
+
         anterior.remove();
+
     }
 
 
@@ -1175,12 +1445,6 @@ function abrirJuego(juego) {
 
     script.onload =
         function() {
-
-            /*
-               Damos tiempo para que
-               aparezca el emulador
-               y sus controles.
-            */
 
             setTimeout(
                 function() {
@@ -1206,11 +1470,6 @@ function abrirJuego(juego) {
                         "¡Juego listo!";
 
 
-                    /*
-                       Ocultamos solamente
-                       la pantalla de carga.
-                    */
-
                     setTimeout(
                         function() {
 
@@ -1220,16 +1479,6 @@ function abrirJuego(juego) {
                         },
                         700
                     );
-
-
-                    /*
-                       Guardado automático.
-
-                       Cada 60 segundos intentamos
-                       crear un estado rápido.
-                    */
-
-                    iniciarAutoGuardado();
 
                 },
                 1600
@@ -1268,209 +1517,12 @@ function abrirJuego(juego) {
 
 
 /* =========================================================
-   GUARDADO AUTOMÁTICO
-========================================================= */
-
-function iniciarAutoGuardado() {
-
-    if (autoSaveInterval) {
-
-        clearInterval(
-            autoSaveInterval
-        );
-
-    }
-
-
-    /*
-       Cada 60 segundos dejamos preparado
-       el guardado del estado.
-
-       EmulatorJS administra el almacenamiento
-       del estado en el navegador.
-    */
-
-    autoSaveInterval =
-        setInterval(
-            function() {
-
-                intentarGuardarEstado();
-
-            },
-            60000
-        );
-
-}
-
-
-/* =========================================================
-   GUARDAR ESTADO
-========================================================= */
-
-function intentarGuardarEstado() {
-
-    try {
-
-        /*
-           EmulatorJS expone la instancia
-           del emulador a través de EJS_emulator.
-
-           Si todavía no está disponible,
-           simplemente no hacemos nada.
-        */
-
-        if (
-            window.EJS_emulator &&
-            typeof
-            window.EJS_emulator.saveState
-            === "function"
-        ) {
-
-            window.EJS_emulator.saveState();
-
-            console.log(
-                "💾 Estado guardado automáticamente."
-            );
-
-        }
-
-    } catch (error) {
-
-        console.log(
-            "No se pudo guardar automáticamente.",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   BOTÓN GUARDAR
-========================================================= */
-
-saveButton.addEventListener(
-    "click",
-    function() {
-
-        intentarGuardarEstado();
-
-
-        /*
-           Pequeña confirmación visual.
-        */
-
-        const texto =
-            saveButton.textContent;
-
-
-        saveButton.textContent =
-            "✅ Guardado";
-
-
-        setTimeout(
-            function() {
-
-                saveButton.textContent =
-                    texto;
-
-            },
-            1200
-        );
-
-    }
-);
-
-
-/* =========================================================
-   BOTÓN CARGAR
-========================================================= */
-
-loadButton.addEventListener(
-    "click",
-    function() {
-
-        try {
-
-            if (
-                window.EJS_emulator &&
-                typeof
-                window.EJS_emulator.loadState
-                === "function"
-            ) {
-
-                window.EJS_emulator.loadState();
-
-
-                const texto =
-                    loadButton.textContent;
-
-
-                loadButton.textContent =
-                    "✅ Cargado";
-
-
-                setTimeout(
-                    function() {
-
-                        loadButton.textContent =
-                            texto;
-
-                    },
-                    1200
-                );
-
-            } else {
-
-                alert(
-                    "El emulador todavía no está listo."
-                );
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Error cargando estado:",
-                error
-            );
-
-            alert(
-                "No hay un estado guardado disponible."
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   CERRAR
+   CERRAR EMULADOR
 ========================================================= */
 
 closePlayer.addEventListener(
     "click",
     function() {
-
-        /*
-           Intentamos guardar antes de salir.
-        */
-
-        intentarGuardarEstado();
-
-
-        if (autoSaveInterval) {
-
-            clearInterval(
-                autoSaveInterval
-            );
-
-            autoSaveInterval = null;
-
-        }
-
 
         if (progresoInterval) {
 
@@ -1483,20 +1535,74 @@ closePlayer.addEventListener(
         }
 
 
-        /*
-           Volvemos a la biblioteca.
-        */
-
         playerModal.style.display =
             "none";
 
 
         /*
-           Recargar la página limpia
-           la instancia del emulador.
+           Recarga para limpiar
+           completamente el emulador.
         */
 
         location.reload();
+
+    }
+);
+
+
+/* =========================================================
+   ACERCA DE
+========================================================= */
+
+const aboutButton =
+    document.getElementById("aboutButton");
+
+const aboutModal =
+    document.getElementById("aboutModal");
+
+const aboutClose =
+    document.getElementById("aboutClose");
+
+
+aboutButton.addEventListener(
+    "click",
+    function() {
+
+        aboutModal.style.display =
+            "flex";
+
+    }
+);
+
+
+aboutClose.addEventListener(
+    "click",
+    function() {
+
+        aboutModal.style.display =
+            "none";
+
+    }
+);
+
+
+/*
+   Cerrar tocando fuera
+   de la ventana.
+*/
+
+aboutModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === aboutModal
+        ) {
+
+            aboutModal.style.display =
+                "none";
+
+        }
 
     }
 );
