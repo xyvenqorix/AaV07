@@ -17,12 +17,12 @@ const juegos = [
     },
 
     {
-        id: "Secret of Mana (USA)",
-        name: "Secret of Mana (USA)",
-        rom: "Secret of Mana (USA).nes",
-        cover: "mario-nes.jpg",
-        system: "nes"
-    },
+    id: "secret_of_mana",
+    name: "Secret of Mana",
+    rom: "Secret of Mana (USA).sfc",
+    cover: "secret-of-mana.jpg",
+    system: "snes"
+},
 
     {
         id: "Harvest Moon - Friends of Mineral Town (Europe)",
