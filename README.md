@@ -24,8 +24,7 @@ La información de los juegos se encuentra separada en `database/database.js`, m
 
 Los juegos se colocan directamente en la raíz del proyecto, junto a `index.html`.
 
-## 📁 Estructura del proyecto
-
+📁 Estructura del proyecto
 /
 ├── index.html
 ├── Secret of Mana (USA).sfc
