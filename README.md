@@ -5,11 +5,13 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-In%20Development-orange)
 ![Platform](https://img.shields.io/badge/Platform-Web-blue)
+![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20PC%20%7C%20Nintendo-blue)
 
-## Plataform Compatible 
-.gb → system: "gb"
-.gba → system: "gba"
-.nes → system: "nes"
+## 🎮 Plataform Compatible
+
+.gb → system: "gb"  
+.gba → system: "gba"  
+.nes → system: "nes"  
 .sfc → system: "snes"
 
 ## 📖 Descripción
