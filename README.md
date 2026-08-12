@@ -1,3 +1,17 @@
+## 📁 Estructura del proyecto
+
+``text
+/
+├── index.html
+├── Secret of Mana (USA).sfc
+│
+├── includes/
+│   ├── style.css
+│   └── script.js
+│
+└── database/
+    └── database.js
+
 # 🎮 Nintendo Web Emulator
 
 > Emulador web para ejecutar y organizar juegos clásicos de Nintendo directamente desde el navegador.
