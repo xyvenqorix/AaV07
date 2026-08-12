@@ -17,9 +17,9 @@ const juegos = [
     },
 
     {
-        id: "mario_nes",
-        name: "Super Mario Bros. NES",
-        rom: "Super Mario Bros.nes",
+        id: "Secret of Mana (USA)",
+        name: "Secret of Mana (USA)",
+        rom: "Secret of Mana (USA).nes",
         cover: "mario-nes.jpg",
         system: "nes"
     },
