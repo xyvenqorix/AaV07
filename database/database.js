@@ -11,8 +11,8 @@ const juegos = [
     {
         id: "mario_gba",
         name: "Classic NES Series - Super Mario Bros.",
-        rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gba",
-        cover: "mario.jpg",
+        rom: "includes/room/Classic NES Series - Super Mario Bros. (USA, Europe).gba",
+        cover: "cover/mario.jpg",
         system: "gba"
     },
 
