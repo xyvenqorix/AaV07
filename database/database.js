@@ -20,7 +20,7 @@ const juegos = [
     id: "secret_of_mana",
     name: "Secret of Mana",
     rom: "includes/room/Secret of Mana (USA).sfc",
-    cover: "secret-of-mana.jpg",
+    cover: "cover/secret-of-mana.jpg",
     system: "snes"
 },
 
