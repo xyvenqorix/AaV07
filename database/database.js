@@ -3,7 +3,7 @@ const juegos = [
     {
         id: "pokemon",
         name: "Pokemon Rojo",
-        rom: "Pokemon - Red Version (UE) [S][!].gb",
+        rom: "Pokemon.-.Red.Version.UE.S.gb",
         cover: "pokemon.jpg",
         system: "gb"
     },
@@ -11,7 +11,8 @@ const juegos = [
     {
         id: "mario_gba",
         name: "Classic NES Series - Super Mario Bros.",
-        rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gb",
+        rom: "Classic NES Series - Super Mario Bros. (USA, Europe).gba
+",
         cover: "mario.jpg",
         system: "gba"
     },
@@ -25,8 +26,8 @@ const juegos = [
 },
 
     {
-        id: "Harvest Moon - Friends of Mineral Town (Europe)",
-        name: "Harvest Moon - Friends of Mineral Town (Europe)",
+        id: "Harvest Moon - Friends of Mineral Town",
+        name: "Harvest Moon - Friends of Mineral Town",
         rom: "Harvest Moon - Friends of Mineral Town (Europe).gba",
         cover: "mario-nes.jpg",
         system: "gba"
