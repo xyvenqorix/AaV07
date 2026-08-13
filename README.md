@@ -35,8 +35,10 @@ Los juegos se colocan directamente en la raíz del proyecto, junto a `index.html
     │   └── script.js
     │
     └── database/
-        └── database.js
-
+    │   └── database.js
+    │
+    └── cover
+         └── ejemplo.png
 ```bash
 git clone https://github.com/xyvenqorix/nintendoEmu-js.git
 cd nintendoEmu-js
